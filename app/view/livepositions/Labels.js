@@ -1,0 +1,22 @@
+Ext.define('iRISKClient.LivePositions.Labels', {
+    singleton: true,
+    LivePositionsTitle: "Live Positions",
+    Product: "Product",
+    MarketPrice: "MarketPrice",
+    MTM: "MTM",
+    Delta: "Delta",
+    Open: "Open",
+    High: "High",
+    Low: "Low",
+    Close: "MTMClose",
+    Chg: "Chg",
+    ChgPct: "ChgPct",
+    DeltaValue: "DeltaValue",
+    LSPrice: "LSPrice",
+    VaR: "VaR",
+    WTD: "WTD",
+    MTD: "MTD",
+    QTD: "QTD",
+    YTD: "YTD",
+    CloseTimeStamp: "CloseTimeStamp"
+});

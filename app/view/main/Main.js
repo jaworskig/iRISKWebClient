@@ -222,7 +222,7 @@ Ext.define('iRISKClient.view.main.MainAppView', {
                         }]);
 
                         // debugger;
-                        iRISKClient.view.main.MainController.restoreLayout();
+                        //iRISKClient.view.main.MainController.restoreLayout();
 
                     }
                 }
@@ -269,7 +269,7 @@ var updateClock = function () {
             console.log("No connection to server");
         } else {
 
-            if (iRISKServerConnected == false) {
+            if (iRISKServerConnected == false)
                 iRISKClient.view.main.MainController.setWsState("connected");
                 iRISKServerConnected = true;
 

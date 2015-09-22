@@ -103,6 +103,8 @@
     //signalR.hub = $.hubConnection('http://lenovoyoga/SignalR', { useDefaultPath: false });
     signalR.hub = $.hubConnection('http://yellow.irisk.no/SignalR', { useDefaultPath: false });
 
+    //signalR.hub = $.hubConnection('http://192.168.1.42/SignalR', { useDefaultPath: false });
+
     $.extend(signalR, signalR.hub.createHubProxies());
 
 }(window.jQuery, window));

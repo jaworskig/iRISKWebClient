@@ -26,7 +26,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     //        }
     //    }
     //],
- 
+
     reportName: null,
     reportId: null,
     reportGUID: null,
@@ -43,8 +43,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     constructor: function (cfg) {
         // debugger;
         var me = this;
-        HubService.SubscribeReportUpdate(me);
-
+       
         if (cfg.reportId == null) {
             me.reportName = cfg.$initParent.title;
             me.reportId = cfg.$initParent._partConfig.reportId;
@@ -59,8 +58,6 @@ Ext.define('iRISKClient.view.reports.Reports2', {
             me.reportName = cfg.reportName;
             me.reportId = cfg.reportId;
         }
-
-        // me.reportGUID = "359b6b21-d8a9-4857-99a2-7ba57ff9764a";
 
 
         var returnData = null;
@@ -81,8 +78,6 @@ Ext.define('iRISKClient.view.reports.Reports2', {
             me.recreateReport();
 
         } else {
-
-
             me.columns = returnData.columns;
             me.columns[0].width = 200;
 
@@ -93,14 +88,13 @@ Ext.define('iRISKClient.view.reports.Reports2', {
             me.store.setRootNode(returnData.data);
             me.setBorder(1);
 
-            //me.stateValue = cfg.$initParent._partConfig.stateValue;
-            //debugger;
-            //me.applyState(cfg.$initParent._partConfig.stateValue);
-
             cfg.$initParent.setTitle(me.reportName + " - " + returnData.reportDateUpdate);
             me.report_lastUpdate = new Date();
 
         }
+
+
+        HubService.SubscribeReportUpdate(me);
 
         this.startReportUpdateCheck();
 
@@ -156,11 +150,11 @@ Ext.define('iRISKClient.view.reports.Reports2', {
         var me = this;
         // debugger;-
 
-        console.log("ReportId: " + msg.ReportId + " ReportTempId: " + msg.ReportTempId + " for " + me.reportGUID + " - " + me.reportId);
+        console.log("HandleReportUpdate for ReportId: " + msg.ReportId + " ReportTempId: " + msg.ReportTempId + " for " + me.reportGUID + " - " + me.reportId);
 
         if ((msg.ReportId > 0 && msg.ReportId == me.reportId) || (msg.ReportTempId != null && msg.ReportTempId == me.reportGUID)) {
 
-           // me.setVisible(true) Not updating hidden grid
+            // me.setVisible(true) Not updating hidden grid
 
             me.updateReportData(msg);
 
@@ -168,7 +162,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     },
 
 
-    updateReportData: function(msg) {
+    updateReportData: function (msg) {
         var me = this;
         var returnData = null;
         Ext.Ajax.request({
@@ -194,7 +188,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
                         returnData.columns[0].width = 200;
                     }
 
-                    //me.setColumns(returnData.columns);
+                    me.setColumns(returnData.columns);
 
                     var newStore = new iRISKClient.store.ReportStore();
                     newStore.setFields(returnData.fields);
@@ -209,7 +203,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
 
     listeners: {
 
-       
+
 
         destroy: function (me, eOpts) {
 
@@ -232,7 +226,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
                 columnresize: { fn: iRISKClient.view.main.MainController.storeLayoutBuffred, scope: this }
             });
 
-            
+
 
             var me = this;
             //if (me.stateValue != undefined)

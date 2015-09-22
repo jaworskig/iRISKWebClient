@@ -63,6 +63,8 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
             me.curveIndicatorsMenu(this.container.component.header, me);
 
+            me.curveStudiesMenu(this.container.component.header, me);
+
             this.update("<div class='chartContainer' id='chart_live_" + this.id + "'style='height:460px'></div>");
 
 
@@ -80,7 +82,6 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
             me.stxx.attachQuoteFeed(new STX.QuoteFeed.MyFeed(chartIQUrl, startDate), {
                 refreshInterval: 0
             });
-
             me.stxx.callbacks.studyPanelEdit = function (params) {
                 var stx = params.stx;
                 var sd = params.sd;
@@ -228,7 +229,7 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         }, delay);
     },
 
-    renderStudyMenu: function (me) {
+    renderIndicatorMenu: function (me) {
 
         var menu = new Ext.menu.Menu({
             plain: true
@@ -677,6 +678,25 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         header.insert(6, {
             xtype: 'splitbutton',
             text: 'Indicators',
+            menu: this.renderIndicatorMenu(me),
+            handler: function (btn, evt) {
+                evt.stopPropagation()
+                return false;
+            },
+            listeners: {
+                arrowclick: function (btn, e, eOpts) {
+                    e.stopPropagation()
+                    return false;
+                }
+            }
+        });
+    },
+
+    curveStudiesMenu: function (header, me) {
+
+        header.insert(7, {
+            xtype: 'splitbutton',
+            text: 'Studies',
             menu: this.renderStudyMenu(me),
             handler: function (btn, evt) {
                 evt.stopPropagation()
@@ -689,8 +709,125 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
                 }
             }
         });
+    },
 
+
+    renderStudyMenu: function (me) {
+
+        // var menu = new Ext.menu.Menu();
+        // plain: true
+        //items:[
+        //    {
+        //        text: 'Studies',
+        //        menu: {
+        //            // <-- submenu by nested config object
+        //            items: [
+        //                {
+        //                    text: 'Aero Glass'
+
+        //                }, {
+        //                    text: 'Vista Black'
+        //                }
+        //            ]
+
+        //        }
+        //    }, {
+        //        text: 'Analysis',
+        //        menu: {
+        //            items: [
+        //                {
+        //                    text: 'Aero Glass'
+        //                }, {
+        //                    text: 'Vista Black'
+        //                }
+        //            ]
+
+        //        }
+        //    }, {
+        //        text: "Save"
+        //    }
+
+        //]
+        // });
+
+
+        var studyMenu = new Ext.menu.Menu();
+
+        Ext.Ajax.request({
+            async: false,
+            url: iRISKClient.Application.GlobalSettings.HostUrl + 'chart/StudyList',
+            success: function (response) {
+                var resp = response.responseText;
+                if (resp) {
+                    returnData = Ext.JSON.decode(resp);
+
+                    returnData.forEach(function (item) {
+                        studyMenu.add({
+                            text: item.Name,
+                            handler: function (val1, val2) {
+
+                                Ext.Ajax.request({
+                                    async: false,
+                                    url: iRISKClient.Application.GlobalSettings.HostUrl + 'chart/GetStudy?id=2',
+                                    success: function (response) {
+                                        me.applyStudy(response);
+                                    }
+                                });
+
+                                // me.applyStudy()
+                            }
+                        });
+                    });
+                }
+            }
+        });
+
+
+        studyMenu.add({
+            text: "Store",
+            handler: function () {
+
+                var win = new iRISKClient.view.chartsLive.StudySaveWindow();
+                win.show();
+                //var chartLayout = me.stxx.exportLayout();
+                //var drawings = me.stxx.serializeDrawings();
+
+                //var study = new Object();
+                //study.chartLayout = chartLayout;
+                //study.drawings = drawings;
+
+                //var jsLayout = Ext.JSON.encode(study);
+
+                //Ext.Ajax.request({
+                //    method: 'POST',
+                //    params: {
+                //        content: jsLayout
+                //    },
+                //    url: iRISKClient.Application.GlobalSettings.HostUrl + 'chart/StoreStudy'
+                //});
+
+            }
+        });
+
+        // menu.add(studyMenu);
+
+        return studyMenu;
+    },
+
+    applyStudy: function (content) {
+
+        var resp = content.responseText;
+        var returnData = Ext.JSON.decode(resp);
+
+        var layout = new Object();
+        layout.studies = returnData.chartLayout.studies;
+        layout.panels = returnData.chartLayout.panels;
+
+        this.stxx.reconstructDrawings(returnData.drawings);
+        this.stxx.importLayout(layout);
+
+
+        this.stxx.draw();
     }
-
 
 });

@@ -2,7 +2,7 @@ Ext.define('iRISKClient.Application.GlobalSettings', {
     singleton: true,
 
     config : {
-
+      
     },
     constructor : function(config){
         this.initConfig(config);
@@ -10,7 +10,7 @@ Ext.define('iRISKClient.Application.GlobalSettings', {
 
     HostUrl: 'http://yellow.irisk.no/',
     //HostUrl: 'http://lenovoyoga/',
-    //HostUrl: 'http://192.168.1.42/',
+    //HostUrl: 'http://localhost:40236/',
     CellBlinkColor: 'F4B084',
 
 

@@ -222,7 +222,7 @@ Ext.define('iRISKClient.view.main.MainAppView', {
                         }]);
 
                         // debugger;
-                        //iRISKClient.view.main.MainController.restoreLayout();
+                        iRISKClient.App.LayoutProvider.restoreLayout();
 
                     }
                 }
@@ -269,7 +269,7 @@ var updateClock = function () {
             console.log("No connection to server");
         } else {
 
-            if (iRISKServerConnected == false)
+            if (iRISKServerConnected == false) {
                 iRISKClient.view.main.MainController.setWsState("connected");
                 iRISKServerConnected = true;
 
@@ -285,20 +285,6 @@ var updateClock = function () {
                 lastServerUpdateCount = HubService.serverUpdateCount;
             }
         }
-
-        //console.log(lastUpdateCount + " - " + HubService.lastServerUpdate.Count)
-
-        //if (lastUpdateCount == 0)
-        //    lastUpdateCount = HubService.lastServerUpdate.Count;
-
-        //var reusltCount = lastUpdateCount - HubService.lastServerUpdate.Count;
-
-        //if (reusltCount == 2) {
-        //    iRISKClient.view.main.MainController.setWsState("no connection");
-
-        //} else {
-        //    lastUpdateCount++;
-        //}
     }
 
 };

@@ -29,7 +29,8 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
             liveprices: {
                 viewTemplate: {
                     items: [{
-                        xtype: 'liveprices'
+                        //xtype: 'liveprices',
+                        xtype: 'livepricesnew'
                     }]
                 }
             },

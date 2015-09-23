@@ -7,6 +7,7 @@ Ext.define('iRISKClient.LivePricesBuilder.Labels', {
 });
 
 Ext.define('iRISKClient.LivePrices.Labels', {
+    alternateClassName: 'LPLabels',
     singleton: true,
     LivePricesTitle: "Live Prices",
     Product: "Product",

@@ -2,6 +2,9 @@ Ext.define('iRISKClient.Application', {
     extend: 'Ext.app.Application',
     name: 'iRISKClient',
 
+    views: [
+        'livepricesnew.LivePrices'
+    ],
 
     launch: function () {
 

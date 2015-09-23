@@ -1,9 +1,11 @@
 Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.Container',
     xtype: 'chartsLive',
     requires: [
-      'Ext.container.Container'
+        'iRISKClient.view.chartsLive.ChartLiveController',
+        'Ext.container.Container'
     ],
+    controller: 'chartsLive',
     config: {
         closable: true
     },
@@ -20,14 +22,14 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
     dateInterval: null,
     defaultResolution: null,
 
-
     constructor: function (cfg) {
-        // debugger;
-        var me = this;
 
-        me.chartIQState = cfg.$initParent._partConfig.chartIQState;
-        me.curveName = cfg.$initParent._partConfig.title;
-        me.defaultResolution = cfg.$initParent._partConfig.resolution;
+        var me = this,
+            partConfig = cfg.partConfig || cfg.$initParent._partConfig;
+
+        me.chartIQState = partConfig.chartIQState;
+        me.curveName = partConfig.title;
+        me.defaultResolution = partConfig.resolution;
 
         var now = new Date();
         me.dateRange = new Date(new Date(now).setMonth(now.getMonth() - 3));
@@ -35,6 +37,8 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         me.feedProducts.push(me.curveName);
 
         HubService.SubscribeFeedArray(me.feedProducts, me);
+
+        me.partConfig = partConfig;
 
         me.callParent();
     },
@@ -49,25 +53,60 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         },
 
         afterrender: function (layout, eOpts) {
-            var me = this;
+            var me = this,
+                header = me.container.component.header,
+                partConfig = me.partConfig,
+                zoomed = false;
 
-            me.curveDateRangeMenu(this.container.component.header, me);
+            Ext.suspendLayouts();
 
-            me.curvesSelectMenu(this.container.component.header, me);
+            if(!header){
+                header = me.add({
+                    xtype: 'header',
+                    baseCls: 'x-panel-header',
+                    dock: 'top',
+                    title: partConfig.title,
+                    frame: true,
+                    ownerCt: me
+                });
 
-            me.curveChartTypeMenu(this.container.component.header, me);
+                zoomed = true;
+            }
 
-            me.curveResolutionMenu(this.container.component.header, me);
+            me.curveDateRangeMenu(header, me);
 
-            me.curveToolsMenu(this.container.component.header, me);
+            me.curvesSelectMenu(header, me);
 
-            me.curveIndicatorsMenu(this.container.component.header, me);
+            me.curveChartTypeMenu(header, me);
 
-            me.curveStudiesMenu(this.container.component.header, me);
+            me.curveResolutionMenu(header, me);
+
+            me.curveToolsMenu(header, me);
+
+            me.curveIndicatorsMenu(header, me);
+
+            me.curveStudiesMenu(header, me);
+
+            if(!zoomed) {
+                header.addTool({
+                    type: 'maximize',
+                    title: 'Zoom',
+                    handler: me.onZoomClick,
+                    scope: me
+                });
+            }
+            else {
+                header.addTool({
+                    type: 'close',
+                    title: 'Close',
+                    handler: me.onUnzoomClick,
+                    scope: me
+                });
+            }
 
             this.update("<div class='chartContainer' id='chart_live_" + this.id + "'style='height:460px'></div>");
 
-
+            Ext.resumeLayouts();
 
             me.chartContainer = $$("chart_live_" + this.id);
 
@@ -140,6 +179,17 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
             }
 
         }
+    },
+
+    onZoomClick: function(){
+        var me = this,
+            partConfig = me.partConfig;
+
+        Ext.GlobalEvents.fireEvent('showfullscreen', 'chartsLive', partConfig);
+    },
+
+    onUnzoomClick: function(){
+        Ext.GlobalEvents.fireEvent('closefullscreen');
     },
 
     handleLiveUpdateFeed: function (msg) {

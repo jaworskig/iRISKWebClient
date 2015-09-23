@@ -8,7 +8,8 @@ Ext.define('iRISKClient.Application.GlobalSettings', {
         this.initConfig(config);
     },
 
-    HostUrl: 'http://yellow.irisk.no/',
+    //HostUrl: 'http://yellow.irisk.no/',
+    HostUrl: 'http://192.168.1.42/',
     //HostUrl: 'http://lenovoyoga/',
     //HostUrl: 'http://localhost:40236/',
     CellBlinkColor: 'F4B084',

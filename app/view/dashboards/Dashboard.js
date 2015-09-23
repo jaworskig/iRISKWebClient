@@ -4,6 +4,7 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
        'Ext.ux.TabReorderer'
     ],
     xtype: 'centralPanel',
+    controller: 'dashboard',
     plugins: 'tabreorderer',
 
     defaults: {

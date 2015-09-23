@@ -5,27 +5,13 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     height: 400,
     requires: [
         'iRISKClient.store.ReportStore',
+        'iRISKClient.view.reports.ReportsController',
         'Ext.data.*',
         'Ext.grid.*',
         'Ext.tree.*'
     ],
-    animate: false,
-    //singleExpand: false,
-    rowLines: true,
-    //sortableColumns: false,
-    trackMouseOver: false,
-    viewConfig: {
-        trackOver: false
-    },
-    //tools: [
-    //    {
-    //        type: 'gear',
-    //        title: 'Edit',
-    //        callback: function() {
-    //            // show help here
-    //        }
-    //    }
-    //],
+
+    controller: 'reportscontroller',
 
     reportName: null,
     reportId: null,
@@ -40,27 +26,34 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     report_lastUpdate: new Date(),
     updateCheckTask: null,
 
-    constructor: function (cfg) {
-        // debugger;
-        var me = this;
-       
-        if (cfg.reportId == null) {
-            me.reportName = cfg.$initParent.title;
-            me.reportId = cfg.$initParent._partConfig.reportId;
-            me.reportGUID = cfg.$initParent._partConfig.reportGUID;
+    animate: false,
+    rowLines: true,
+    trackMouseOver: false,
+    viewConfig: {
+        trackOver: false
+    },
 
-            me.report_type = cfg.$initParent._partConfig.report_type;
-            me.report_split = cfg.$initParent._partConfig.report_split;
-            me.report_sort = cfg.$initParent._partConfig.report_sort;
-            me.report_groupId = cfg.$initParent._partConfig.report_groupId;
+    constructor: function (cfg) {
+        var me = this,
+            partConfig = cfg.partConfig || cfg.$initParent._partConfig,
+            returnData;
+
+        if (cfg.reportId == null) {
+            me.reportName = partConfig.title;
+            me.reportId = partConfig.reportId;
+            me.reportGUID = partConfig.reportGUID;
+
+            me.report_type = partConfig.report_type;
+            me.report_split = partConfig.report_split;
+            me.report_sort = partConfig.report_sort;
+            me.report_groupId = partConfig.report_groupId;
 
         } else {
-            me.reportName = cfg.reportName;
-            me.reportId = cfg.reportId;
+            me.reportName = partConfig.reportName;
+            me.reportId = partConfig.reportId;
         }
 
-
-        var returnData = null;
+        me.partConfig = partConfig;
 
         Ext.Ajax.request({
             async: false,
@@ -88,7 +81,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
             me.store.setRootNode(returnData.data);
             me.setBorder(1);
 
-            cfg.$initParent.setTitle(me.reportName + " - " + returnData.reportDateUpdate);
+            //cfg.$initParent.setTitle(me.reportName + " - " + returnData.reportDateUpdate);
             me.report_lastUpdate = new Date();
 
         }
@@ -201,9 +194,18 @@ Ext.define('iRISKClient.view.reports.Reports2', {
 
     },
 
+    onZoomClick: function(){
+        var me = this,
+            partConfig = me.partConfig;
+
+        Ext.GlobalEvents.fireEvent('showfullscreen', 'reports', partConfig);
+    },
+
+    onUnzoomClick: function(){
+        Ext.GlobalEvents.fireEvent('closefullscreen');
+    },
+
     listeners: {
-
-
 
         destroy: function (me, eOpts) {
 
@@ -219,16 +221,37 @@ Ext.define('iRISKClient.view.reports.Reports2', {
         },
 
         afterrender: function (layout, eOpts) {
-
+            var me = this,
+                header = me.container.component.header,
+                partConfig = me.partConfig,
+                zoomed = false;
 
             this.on({
                 columnschanged: { fn: iRISKClient.view.main.MainController.storeLayoutBuffred, scope: this },
                 columnresize: { fn: iRISKClient.view.main.MainController.storeLayoutBuffred, scope: this }
             });
 
+            if(!header){
+                zoomed = true;
+            }
 
+            if(!zoomed) {
+                header.addTool({
+                    type: 'maximize',
+                    title: 'Zoom',
+                    handler: me.onZoomClick,
+                    scope: me
+                });
+            }
+            else {
+                me.addTool({
+                    type: 'close',
+                    title: 'Close',
+                    handler: me.onUnzoomClick,
+                    scope: me
+                });
+            }
 
-            var me = this;
             //if (me.stateValue != undefined)
             //    me.applyState(me.stateValue);
 
@@ -254,10 +277,13 @@ Ext.define('iRISKClient.view.reports.Reports2', {
             //    }]
             //});
 
+            if(zoomed){
+                header = me.getHeader();
+            }
 
-            if (layout.ownerCt.header != null) {
+            if (header) {
 
-                layout.ownerCt.header.insert(1, {
+                header.insert(1, {
                     xtype: 'button',
                     margin: '0 5 0 0',// (top, right, bottom, left)
                     text: 'Edit',//(me.reportId > 0) ? 'Edit' : 'Save',
@@ -276,91 +302,10 @@ Ext.define('iRISKClient.view.reports.Reports2', {
                     }
                 });
 
-                //layout.ownerCt.header.insert(0, {
-                //    xtype: 'button',
-                //    text: 'Edit Full',
-                //    scope: this,
-                //    handler: function (btn, evt) {
-
-                //        var w = Ext.create('Ext.window.Window', {
-                //            //requires: [
-                //            //    'Ext.layout.container.HBox'
-                //            //],
-                //            width: 600,
-                //            minWidth: 350,
-                //            height: 350,
-                //            layout: {
-                //                type: 'border',
-                //                padding: 0
-                //            },
-                //            items: [
-                //                 {
-                //                     region: 'center',
-                //                     //  xtype: 'tabpanel',
-                //                     items: [{
-                //                         xtype: 'reports',
-                //                         title: this.reportName,
-                //                         reportName: this.reportName,
-                //                         reportId: this.reportId
-                //                     }]
-                //                 },
-                //                 {
-                //                     region: 'east',
-                //                     //title: 'Configuration',
-                //                     width: 350,
-                //                     split: true,
-                //                     collapsible: false,
-                //                     floatable: false,
-                //                     items: [{
-                //                         xtype: 'report_config',
-                //                         reportId: this.reportId
-                //                     }]
-                //                 }
-                //            ]
-
-
-                //            //layout: 'column',
-                //            //items: [
-                //            //    {
-                //            //        xtype: 'reports',
-                //            //        title: this.reportName,
-                //            //        reportName: this.reportName,
-                //            //        reportId: this.reportId,
-                //            //        columnWidth: 0.5
-                //            //    }, {
-                //            //        xtype: 'report_config',
-                //            //        reportId: this.reportId,
-                //            //        columnWidth: 0.5
-                //            //    }
-                //            //]
-                //        });
-                //        w.show();
-                //        w.maximize();
-
-
-                //        //btn.setHidden(true);
-                //        //this.setHidden(true);
-                //        //this.ownerCt.add({
-                //        //    xtype: 'report_config',
-                //        //    reportId: me.reportId
-                //        //});
-                //        evt.stopPropagation()
-                //        return false;
-                //    }
-                //});
             }
-
-            //layout.ownerCt.header.insert(2, {
-
-            //    xtype: 'container',
-            //    flex: 1
-            //});
 
         }
     }
-
-
-
 
 });
 

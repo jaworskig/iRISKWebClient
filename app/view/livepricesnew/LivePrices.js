@@ -1,146 +1,102 @@
 Ext.define('iRISKClient.view.livepricesnew.LivePrices', {
-    extend: 'Ext.grid.Panel',
+    extend: 'iRISKClient.view.livereport.LiveReport',
     xtype: 'livepricesnew',
     requires: [
         'iRISKClient.view.livepricesnew.LivePricesController',
-        'iRISKClient.view.livepricesnew.LivePricesModel',
-        'iRISKClient.column.LivePrice'
+        'iRISKClient.view.livepricesnew.LivePricesModel'
     ],
     controller: 'livepricesnew',
     viewModel: {
         type: 'livepricesnew'
     },
-    viewConfig: {
-        trackOver: false
-    },
-    height: 400,
-    bind: '{liveprices}',
-    columns: [
-        {
-            text: LPLabels.Product,
-            dataIndex: 'Name',
-            hideable: false,
-            width: 150,
-            align: 'left'
-        },
-        {
-            text: LPLabels.BidSize,
-            dataIndex: 'BidSize',
+    columns: {
+        defaults: {
             align: 'right',
             menuDisabled: true,
             sortable: false
         },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Bid,
-            dataIndex: 'Bid',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Ask,
-            dataIndex: 'Ask',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.AskSize,
-            dataIndex: 'AskSize',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Last,
-            dataIndex: 'Last',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Chg,
-            dataIndex: 'Change',
-            renderMethod: 'colorBySignRenderer',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.ChgPct,
-            dataIndex: 'ChangePct',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.LastVolume,
-            dataIndex: 'PrevVolume',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Open,
-            dataIndex: 'Open',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.High,
-            dataIndex: 'High',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Low,
-            dataIndex: 'Low',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.MarketClose,
-            dataIndex: 'Close',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.Volume,
-            dataIndex: 'Volume',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            xtype: 'livepricecolumn',
-            text: LPLabels.LastTimeStamp,
-            dataIndex: 'LastTimeStamp',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        },
-        {
-            text: LPLabels.CloseTimeStamp,
-            dataIndex: 'CloseTimeStamp',
-            align: 'right',
-            menuDisabled: true,
-            sortable: false
-        }
-    ]
+        items: [
+            {
+                text: LPLabels.Product,
+                dataIndex: 'Name',
+                hideable: false,
+                menuDisabled: false,
+                width: 150,
+                align: 'left'
+            },
+            {
+                text: LPLabels.BidSize,
+                dataIndex: 'BidSize'
+            },
+            {
+                text: LPLabels.Bid,
+                dataIndex: 'Bid',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Ask,
+                dataIndex: 'Ask',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.AskSize,
+                dataIndex: 'AskSize',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Last,
+                dataIndex: 'Last',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Chg,
+                dataIndex: 'Change',
+                renderer: 'colorBySignRenderer'
+            },
+            {
+                text: LPLabels.ChgPct,
+                dataIndex: 'ChangePct',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.LastVolume,
+                dataIndex: 'PrevVolume',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Open,
+                dataIndex: 'Open',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.High,
+                dataIndex: 'High',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Low,
+                dataIndex: 'Low',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.MarketClose,
+                dataIndex: 'Close',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.Volume,
+                dataIndex: 'Volume',
+                renderer: 'colorByDiffRenderer'
+            },
+            {
+                text: LPLabels.LastTimeStamp,
+                dataIndex: 'LastTimeStamp',
+                renderer: 'timeRenderer'
+            },
+            {
+                text: LPLabels.CloseTimeStamp,
+                dataIndex: 'CloseTimeStamp'
+            }
+        ]
+    }
 });

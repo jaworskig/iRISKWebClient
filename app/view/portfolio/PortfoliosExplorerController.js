@@ -39,7 +39,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
     onGroupDblClick: function (ttree, record, item, index, eEvent, eOpts) {
 
         var activeTab = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
+        var columnIndex = (activeTab.columnWidths != undefined) ? activeTab.columnWidths.length : 0;
 
         activeTab.addView({
             type: 'livepositions',
@@ -50,7 +50,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
 
     showActiveDeals: function (data) {
         var activeTab = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
+        var columnIndex = (activeTab.columnWidths != undefined) ? activeTab.columnWidths.length : 0;
 
         activeTab.addView({
             type: 'portfolio_deals',

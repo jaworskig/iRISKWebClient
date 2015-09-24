@@ -55,7 +55,8 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
             livepositions: {
                 viewTemplate: {
                     items: [{
-                        xtype: 'livepositions'
+                        //xtype: 'livepositions',
+                        xtype: 'livepositionsnew'
                     }]
                 }
             },

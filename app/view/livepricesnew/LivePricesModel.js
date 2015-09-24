@@ -5,7 +5,7 @@ Ext.define('iRISKClient.view.livepricesnew.LivePricesModel', {
         'iRISKClient.model.LivePricesModel'
     ],
     stores: {
-        liveprices: {
+        livestore: {
             model: 'iRISKClient.model.LivePricesModel',
             proxy: {
                 type: 'ajax',

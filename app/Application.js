@@ -3,6 +3,7 @@ Ext.define('iRISKClient.Application', {
     name: 'iRISKClient',
 
     views: [
+        'livepositionsnew.LivePositions',
         'livepricesnew.LivePrices'
     ],
 

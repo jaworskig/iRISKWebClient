@@ -25,21 +25,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
                     dock.setHidden(true);
                 }
             }
-        },
-
-
-        renderer: function (value, meta, record, rowIndex, colIndex, store, view) {
-            //debugger;
-            //metaData.tdAttr = 'bgcolor="' + view.ownerGrid.getStatusCellColor(record.data.Status) + '"';
-            //debugger;
-
-           // meta.column.setStyle('background','red');
-
-            return "<div style='background-color: " + iRISKClient.Application.GlobalSettings.getStatusCellColor(record.data.Status) + " ' class='x-grid-row-checker' role='button' tabindex='-1' data-tabindex-value='0' data-tabindex-counter='1'>&nbsp;</div>";
         }
-
-      
- 
     },
 
     store: {
@@ -103,9 +89,17 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
     }, {
         text: 'Status',
         dataIndex: 'Status',
-        renderer: function (value, metaData) {
-            //debugger;
-            metaData.tdStyle = 'color:' + iRISKClient.Application.GlobalSettings.getStatusCellColor(value);
+        renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+            var me = this,
+                color = iRISKClient.Application.GlobalSettings.getStatusCellColor(value);
+
+            metaData.tdStyle = 'color:' + color;
+
+            Ext.defer(function(){
+                var cell = view.getCell(record, 0);
+                cell.setStyle('background-color', color);
+            }, 200);
+
             return value;
         }
     }],
@@ -115,6 +109,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
 
         if (message.hasOwnProperty("Deals")) {
             // debugger;
+            var view = this.getView();
             var deal = message.Deals[0];
             var store = this.getStore();
 

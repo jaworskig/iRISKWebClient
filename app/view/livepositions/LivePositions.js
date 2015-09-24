@@ -155,6 +155,8 @@ Ext.define('iRISKClient.view.livepositions.LivePositions', {
                     returnData = Ext.JSON.decode(resp);
                     me.store.loadData([returnData.TotalValues].concat(returnData.Products));
 
+                    debugger;
+
                     me.feedProducts = me.store.data.items.map(function (item) {
                         return item.data.Name;
                     });

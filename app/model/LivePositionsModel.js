@@ -1,5 +1,6 @@
 Ext.define("iRISKClient.model.LivePositionsModel", {
     extend: "Ext.data.Model",
+    idProperty: 'Name',
     fields: [{ name: "Name" },
             { name: "MarketPrice"},
             { name: "MTM" },

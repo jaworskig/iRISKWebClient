@@ -1,0 +1,31 @@
+@include extjs-tab-panel-ui(
+ $ui: 'alternative',
+
+ $ui-tab-background-color: $panel-base-color,
+ $ui-tab-color: $text-color
+);
+
+.x-tab-bar-alternative {
+	.x-tab {
+
+		.x-tab-inner {
+			color: $base-color;
+		}
+
+		&:after {
+		    background: $panel-base-color;
+		}
+	}
+
+	.x-tab.x-tab-active.x-tab-alternative {
+		background: $panel-base-color;
+
+		.x-tab-inner-alternative {
+			color: $base-color;
+		}
+
+		&:after {
+		    background: $base-color;
+		}
+	}
+}

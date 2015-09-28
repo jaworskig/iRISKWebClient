@@ -1,0 +1,12 @@
+$button-default-color: $text-color;
+
+$button-toolbar-background-color: $highlight-color2;
+$button-toolbar-background-color-over: darken($highlight-color2, 20%);
+$button-toolbar-background-color-pressed: darken($highlight-color2, 10%);
+$button-toolbar-background-color-disabled: $highlight-color;
+$button-toolbar-border-color: $background-color;
+$button-toolbar-border-color-pressed: darken($background-color, 10%);
+
+$button-toolbar-color-pressed: $highlight-color;
+$button-toolbar-color-over: $window-header-color;
+$button-toolbar-color: $text-color;

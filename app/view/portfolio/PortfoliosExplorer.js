@@ -160,7 +160,6 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
         var store = this.getReferences().portfoliosTreePanel.store;
         store.getProxy().setUrl(iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
         store.load({scope: this, callback: function(records, operation, success) {
-            debugger;
             if (success)
                 this.getReferences().portfoliosTreePanel.updateSnapshotData(this.items.items[0], root);
         }});

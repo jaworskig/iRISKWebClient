@@ -1,0 +1,75 @@
+@import '_config.scss';
+
+$panel-base-color: $window-color;
+$panel-body-background-color: $window-color;
+$panel-frame-background-color: $window-color;
+$panel-header-background-color: $window-h-color;
+$panel-header-color: $highlight-color3;
+
+$border-layout-ct-background-color: $window-h-color;
+$splitter-collapse-tool-background-color: $window-h-color;
+$splitter-collapse-tool-glyph-color: $highlight-color2;
+
+$accordion-background-color: $window-color;
+$accordion-header-over-background-color: darken($window-h-color, 10%);
+$accordion-header-color-over: $text-color;
+$accordion-header-background-color: $window-h-color;
+$accordion-header-color: $text-color;
+$accordion-tool-glyph-color: $highlight-color3;
+
+$menu-background-color: $window-color;
+$menu-item-active-background-color: $highlight-color3;
+$menu-border-color: $highlight-color3;
+$menu-text-color: $text-color;
+$menu-separator-border-color: $highlight-color3;
+
+$tree-glyph-color: $text-color;
+
+$toolbar-footer-background-color: $window-h-color;
+$toolbar-background-color: $window-color;
+$toolbar-text-color: $highlight-color3;
+
+$messagebox-body-background-color: $window-color;
+$messagebox-footer-background-color: $window-h-color;
+$messagebox-header-background-color: $window-h-color;
+$messagebox-error-glyph-color: $decline-color;
+$messagebox-warning-glyph-color: $highlight-color3;
+$messagebox-question-glyph-color: $highlight-color3;
+
+$window-border-color: $border-color;
+$window-background-color: $window-color;
+$window-body-background-color: $window-color;
+$window-body-color: $text-color;
+$window-header-background-color: $window-h-color;
+$window-header-color: $base-color;
+
+$css-shadow-border-color: $highlight-color;
+
+$progress-background-color: $window-h-color;
+
+$boundlist-background-color: $window-color;
+$boundlist-border-color: $body-background-color;;
+$boundlist-item-over-background-color: darken($window-color, 2%);
+$boundlist-item-over-text-color: $text-color;
+$boundlist-item-selected-background-color : darken($window-color, 5%);
+$boundlist-item-selected-text-color : $highlight-color;
+
+$colorpicker-background-color: $window-color;
+$colorpicker-border-color: $border-color;
+$colorpicker-item-inner-border-color: $background-color;
+
+$datepicker-background-color: $window-color;
+$datepicker-border-color: $background-color;
+$datepicker-column-header-background-color: $window-h-color;
+$datepicker-header-background-color: $window-h-color;
+$datepicker-item-border-color: $background-color;
+$datepicker-item-hover-background-color: $highlight-color;
+$datepicker-item-color: $text-color;
+
+$slider-track-background-color: $window-color;
+$slider-track-border-color: $base-color;
+$slider-thumb-glyph-color: $base-color;
+$slider-thumb-background-color: $window-color;
+
+$toolbar-background-color: $window-h-color;
+$tip-background-color: $window-color;

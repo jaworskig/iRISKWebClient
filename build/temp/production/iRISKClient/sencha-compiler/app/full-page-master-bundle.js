@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Projects\iRISK\src\iRISK\Trunk\iRISK.WebClient\app.js
+// @require /Users/andreacammarata/Web/sencha/iRISKWebClient/app.js

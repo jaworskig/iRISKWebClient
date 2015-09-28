@@ -1,0 +1,93 @@
+@include google-webfont(
+    $font-name: Montserrat,
+    $font-weights: 400 700
+);
+
+@include google-webfont(
+    $font-name: Coda,
+    $font-weights: 400 700
+);
+
+.x-grid-header-ct {
+	border: none;	
+}
+
+.x-grid-group-title,
+.x-column-header-inner {
+	border-top: none;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.x-panel-header-title .x-title-text {
+	text-transform: uppercase;
+}
+
+.x-tree-panel .x-grid-body{
+	padding: 8px;
+}
+
+.x-form-empty-field {
+	font-style: italic;
+}
+.x-css-shadow {
+	display: none;
+	position: relatice;
+	top: -999px;
+	left: -999px;
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+.x-progress-bar:after {
+  content: "";
+  position: absolute;
+  animation: move 2s linear infinite;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    -45deg, 
+    rgba(255, 255, 255, .2) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, .2) 50%, 
+    rgba(255, 255, 255, .2) 75%, 
+    transparent 75%, 
+    transparent
+  );
+  z-index: 1;
+  background-size: 50px 50px;
+  animation: move 2s linear infinite;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+
+.x-menu-item,
+.x-boundlist-item {
+	border-left: 4px solid transparent;	
+}
+
+.x-webkit .x-form-text {
+	height: 100%;
+}
+.x-form-text-wrap.x-form-text-wrap-default {
+	display: inline;
+}
+
+.x-fieldset {
+  background: transparent;
+}
+
+//fix tooltip bug.
+.x-tip-body {
+	padding-right: 25px;
+	background-position: 2px 5px;
+}

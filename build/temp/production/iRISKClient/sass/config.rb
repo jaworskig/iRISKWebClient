@@ -1,2 +1,2 @@
-Compass.add_project_configuration('..\..\..\..\..\sass\config.rb')
-cache_path = 'C:\Projects\iRISK\src\iRISK\Trunk\iRISK.WebClient/build/.sass-cache'
+Compass.add_project_configuration('../../../../../sass/config.rb')
+cache_path = '/Users/andreacammarata/Web/sencha/iRISKWebClient/build/.sass-cache'

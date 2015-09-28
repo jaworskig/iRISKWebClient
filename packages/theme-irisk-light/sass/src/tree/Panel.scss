@@ -1,0 +1,16 @@
+.x-tree-view {
+	.x-grid-item {
+		background: $base-color;
+	}
+	.x-grid-item-over {
+		background: $highlight-color;
+	}
+}
+
+.x-tree-panel .x-grid-body {
+    background: $base-color;
+}
+
+.x-tree-panel {
+	border: 1px solid $border-color;
+}

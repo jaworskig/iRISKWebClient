@@ -1,0 +1,45 @@
+@include extjs-tab-panel-ui(
+ $ui: 'alternative'
+);
+
+.x-tab-focus.x-tab-default {
+	outline: none;
+}
+
+.x-tab-bar-alternative {
+	.x-tab {
+
+		text-transform: uppercase;
+		font-weight: bold;
+		outline: none;
+
+		> span {
+			color: $base-color;
+			padding: 0 5px;
+		}
+
+		.x-tab-inner {
+			font-weight: bold;
+		}
+
+		&:after {
+		    content: "";
+		    display: block;
+		    height: 2px;
+		    width: 100%;
+		}
+
+	}
+
+	.x-tab.x-tab-active.x-tab-alternative {
+		outline: none;
+
+		&:after {
+		    content: "";
+		    display: block;
+		    height: 2px;
+		    width: 100%;
+		}
+	}
+
+}

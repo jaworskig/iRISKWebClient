@@ -1,0 +1,23 @@
+///////////////////// GLOBAL SENCHA VARS
+//Configuring these changes overall view
+
+$base-color: #fc9e00; //orange highlight
+$body-background-color: #181818; //dark gray;
+$color: #bdbdbf; //light gray for text
+
+///////////////////// COLORS
+
+$background-color: $body-background-color; //dark gray;
+$window-color: #121212; //darkest gray
+$window-h-color: #242424; //light gray;
+$border-color: #000;
+$white: #fff;
+
+$text-color: $color; //light gray
+
+$confirmation-color: #39ce00; //green
+$decline-color: #e80000; //red
+
+$highlight-color: #357f9e; //blue
+$highlight-color2: #c77cd5; //purple
+$highlight-color3: $base-color; //orange

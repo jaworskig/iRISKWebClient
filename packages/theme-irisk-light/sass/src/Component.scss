@@ -1,0 +1,38 @@
+.x-column-header-inner {
+	color: $text-color;
+}
+
+.x-resizable-handle {
+	background-color: $window-h-color;	
+}
+
+.x-progress-bar:after {
+  background-image: linear-gradient(
+    -45deg, 
+    rgba(255, 255, 255, .2) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, .2) 50%, 
+    rgba(255, 255, 255, .2) 75%, 
+    transparent 75%, 
+    transparent
+  );
+}
+
+.x-menu-item,
+.x-boundlist-item {
+	background: lighten($window-h-color, 2%);
+	border-left: 4px solid transparent;	
+}
+
+.x-menu-item-focus {
+	background: $border-color;
+}
+
+.x-menu-item-checked,
+.x-menu-item-active,
+.x-boundlist-selected {
+	background: lighten($window-h-color, 5%);
+	border-left: 4px solid $highlight-color4;
+	color: $text-color;
+}

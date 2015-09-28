@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="iRISKClient" default=".help">
-  <!--
+    <!--
     The build-impl.xml file imported here contains the guts of the build process. It is
     a great idea to read that file to understand how the process works, but it is best to
     limit your changes to this file.
     -->
-  <import file="${basedir}/.sencha/app/build-impl.xml"/>
+    <import file="${basedir}/.sencha/app/build-impl.xml"/>
 
-  <!--
+    <!--
     The following targets can be provided to inject logic before and/or after key steps
     of the build process:
 
@@ -39,121 +39,4 @@
             <target name="-after-build"/>
     -->
 
-  <macrodef name="x-run-build">
-    <attribute name="target"/>
-    <attribute name="theme"/>
-    <attribute name="locale" default="cs"/>
-    <attribute name="buildName" default="@{theme}"/>
-    <attribute name="buildId" default="@{theme}-@{locale}"/>
-    <sequential>
-      <if>
-        <equals arg1="@{locale}" arg2=""/>
-        <then>
-          <ant dir="${basedir}" inheritall="false" inheritrefs="true" target="@{target}">
-            <property name="compiler.ref.id" value="${compiler.ref.id}-@{theme}"/>
-            <property name="app.theme" value="ext-theme-@{theme}"/>
-            <property name="app.build.dir.suffix" value="ext-theme-@{theme}"/>
-            <property name="cmd.dir" value="${cmd.dir}"/>
-            <property name="build.environment" value="${build.environment}"/>
-            <property name="build.compression.yui" value="${build.compression.yui}"/>
-            <property name="build.id" value="@{buildId}"/>
-            <property name="build.name" value="@{buildName}"/>
-          </ant>
-        </then>
-        <else>
-          <ant dir="${basedir}" inheritall="false" inheritrefs="true" target="@{target}">
-            <property name="compiler.ref.id" value="${compiler.ref.id}-@{theme}-@{locale}"/>
-            <property name="app.theme" value="ext-theme-@{theme}"/>
-            <property name="app.locale" value="@{locale}"/>
-            <property name="app.build.dir.suffix" value="ext-theme-@{theme}-@{locale}"/>
-            <property name="cmd.dir" value="${cmd.dir}"/>
-            <property name="build.environment" value="${build.environment}"/>
-            <property name="build.compression.yui" value="${build.compression.yui}"/>
-            <property name="build.id" value="@{buildId}"/>
-            <property name="build.name" value="@{buildName}"/>
-          </ant>
-        </else>
-      </if>
-    </sequential>
-  </macrodef>
-
-  <target name="build-all" depends="build-crisp,build-crisp-touch"/>
-
-  <!--<target name="clean" depends="init,clean-all"/>-->
-  <!--<target name="build" depends="init,build-all"/>-->
-
-  <!-- Build -->
-
-  <target name="build-crisp" depends="init">
-    <echo>
-      Build iRISKClient - Crisp Theme
-    </echo>
-    <x-run-build theme="crisp" target="app-build-impl.build"/>
-  </target>
-
-  <target name="build-crisp-touch" depends="init">
-    <echo>
-      Build iRISKClient - Crisp Touch Theme
-    </echo>
-    <x-run-build theme="crisp-touch" target="app-build-impl.build"/>
-  </target>
-
-  <!-- Watch -->
-
-  <target name="watch-crisp" depends="init">
-    <echo>
-      Watch iRISKClient - Crisp Theme
-    </echo>
-    <x-run-build theme="crisp" target="watch"/>
-  </target>
-
-  <target name="watch-crisp-touch" depends="init">
-    <echo>
-      Watch iRISKClient - Crisp Touch Theme
-    </echo>
-    <x-run-build theme="crisp-touch" target="watch"/>
-  </target>
-
-  <!-- Refresh -->
-
-  <target name="refresh-crisp" depends="init">
-    <echo>
-      Refresh iRISKClient- Crisp Theme
-    </echo>
-    <x-run-build theme="crisp" target="app-build-impl.refresh"/>
-  </target>
-
-  <target name="refresh-crisp-touch" depends="init">
-    <echo>
-      Refresh iRISKClient - Crisp Theme
-    </echo>
-    <x-run-build theme="crisp-touch" target="app-build-impl.refresh"/>
-  </target>
-
-  <!-- Clean -->
-  <target name="clean-all" depends="clean-crisp,clean-crisp-touch"/>
-
-  <target name="clean-crisp" depends="init">
-    <echo>
-      Clean iRISKClient- Crisp Theme
-    </echo>
-    <x-run-build theme="crisp" target="app-build-impl.clean"/>
-  </target>
-
-  <target name="clean-crisp-touch" depends="init">
-    <echo>
-      Clean iRISKClient- Crisp Theme
-    </echo>
-    <x-run-build theme="crisp-touch" target="app-build-impl.clean"/>
-  </target>
-
-  <target name="sass-full" depends="resources,sass"/>
-
-  <target name="sass-all" depends="init">
-    <for param="theme" list="crisp,crisp-touch">
-      <sequential>
-        <x-run-build target="sass-full" theme="@{theme}"/>
-      </sequential>
-    </for>
-  </target>
 </project>

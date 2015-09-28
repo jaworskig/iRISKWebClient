@@ -1,4 +1,5 @@
 Ext.define('iRISKClient.Portfolio.Labels', {
+    alternateClassName: 'PLB',
     singleton: true,
     Explorer: "Explorer",
     Live: "Live",

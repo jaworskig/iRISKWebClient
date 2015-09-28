@@ -3,7 +3,8 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
     extend: 'Ext.form.Panel',
     xtype: 'leftArea',
     requires: [
-        'iRISKClient.LeftArea.Labels'
+        'iRISKClient.LeftArea.Labels',
+        'iRISKClient.view.portfolionew.panel.PortfolioPanel'
     ],
     //controller: 'leftAreaCtrl',
     //layout: 'border',
@@ -104,10 +105,18 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
             //    iconCls: 'x-tool-img x-tool-expand-left'
             //},
 
+            /*
             {
                 xtype: "portfoliosPanel",
                 title: iRISKClient.LeftArea.Labels.Portfolios
-            }, {
+            },
+            */
+
+            {
+                xtype: "portfoliopanelnew",
+                title: iRISKClient.LeftArea.Labels.Portfolios
+            },
+            {
                 xtype: "counterpartsExplorer",
                 title: iRISKClient.LeftArea.Labels.Counterparts,
                 flex: 1

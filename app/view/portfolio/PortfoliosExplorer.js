@@ -55,7 +55,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
 
     initComponent: function () {
 
-        var portfoliosRoot = this.$initParent.$initParent.getCurrentPortfoliosRoot();//null;//EXTJS6 this.$initParent.$initParent.getCurrentPortfoliosRoot();
+        var portfoliosRoot = "Default Root";
         Ext.apply(this, {
             items: [{
                 reference: 'portfoliosTreePanel',
@@ -73,6 +73,11 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
                     proxy: {
                         type: 'ajax',
                         url: iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + portfoliosRoot
+                    },
+                    listeners: {
+                        load: function(){
+
+                        }
                     }
                 }),
                 handleLiveUpdateFeed: function (message) {
@@ -104,7 +109,8 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
                         type: 'POST',
                         async: true,
                         cache: false,
-                        success: function (snapshot) {                        
+                        success: function (snapshot) {
+                            debugger;
                             var store = context.getStore();
                             store.suspendAutoSync();
                             for (var i = 0; i < store.data.items.length; i++) {
@@ -154,6 +160,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
         var store = this.getReferences().portfoliosTreePanel.store;
         store.getProxy().setUrl(iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
         store.load({scope: this, callback: function(records, operation, success) {
+            debugger;
             if (success)
                 this.getReferences().portfoliosTreePanel.updateSnapshotData(this.items.items[0], root);
         }});

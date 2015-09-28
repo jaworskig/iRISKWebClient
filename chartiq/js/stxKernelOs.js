@@ -5,7 +5,7 @@ Copyright 2014 ChartIQ LLC
 */
 
 (function(){
-	var trialExpiration =  "2015/09/28";
+	var trialExpiration =  "2016/09/28";
 	if (trialExpiration != "undefined") {
 		var expiration = new Date(trialExpiration);
 		var now = new Date();

@@ -57,6 +57,7 @@ Ext.define('iRISKClient.view.main.MainAppView', {
                 region: 'center',
                 xtype: 'tabpanel',
                 reference: 'mainArea',
+                itemId: 'mainArea',
                 stateful: true,
                 stateId: 'mainTabPanel',
                 items: [

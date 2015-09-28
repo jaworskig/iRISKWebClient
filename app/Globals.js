@@ -1,4 +1,5 @@
 Ext.define('iRISKClient.Application.GlobalSettings', {
+    alternateClassName: 'Settings',
     singleton: true,
 
     config : {

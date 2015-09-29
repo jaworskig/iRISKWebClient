@@ -1,7 +1,7 @@
 Ext.define('iRISKClient.store.LivePositionsStore', {
     extend: 'Ext.data.Store',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     storeId: 'livePositionsDataStore',

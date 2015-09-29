@@ -2,10 +2,6 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
     //extend: 'Ext.Component',
     extend: 'Ext.form.Panel',
     xtype: 'leftArea',
-    requires: [
-        'iRISKClient.LeftArea.Labels'
-    ],
-    //controller: 'leftAreaCtrl',
     //layout: 'border',
     region: 'west',
     width: 450,
@@ -16,6 +12,11 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
     collapsed: false,
     layout: 'fit',
     stateful: true,
+
+    requires: [
+    'iRISKClient.LeftArea.Labels',
+    'iRISKClient.view.portfolionew.panel.PortfolioPanel'
+    ],
 
     header: false,
 
@@ -45,6 +46,7 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
     initComponent: function () {
         var me = this;
         var placeHolder = me.getPlaceholder('left');
+
 
         placeHolder.insert(1, {
             xtype: 'button',
@@ -105,7 +107,7 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
             //},
 
             {
-                xtype: "portfoliosPanel",
+                xtype: "portfoliopanelnew", //"portfoliosPanel",
                 title: iRISKClient.LeftArea.Labels.Portfolios
             }, {
                 xtype: "counterpartsExplorer",

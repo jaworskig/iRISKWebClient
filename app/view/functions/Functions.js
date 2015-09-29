@@ -15,7 +15,7 @@ Ext.define('iRISKClient.view.functions.Functions', {
       'Ext.tree.*',
       'Ext.data.*',
       'Ext.layout.container.HBox',
-      'iRISKClient.Application.GlobalSettings'
+      'iRISKClient.util.GlobalSettings'
     ],
 
     initComponent: function () {
@@ -28,7 +28,7 @@ Ext.define('iRISKClient.view.functions.Functions', {
                 store: new Ext.data.TreeStore({
                     proxy: {
                         type: 'ajax',
-                        url: iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/FunctionListData'
+                        url: Settings.HostUrl + 'Formula/FunctionListData'
                     }
                 }),
                 rootVisible: false,

@@ -54,7 +54,7 @@ var toISODateString = function (date) {
 }
 
 var updateFormula = function (tree) {
-    var url = iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/UpdateFormula';
+    var url = Settings.HostUrl + 'Formula/UpdateFormula';
     Ext.Ajax.request({
         url: url, method: "POST", jsonData: Ext.JSON.encode(tree),
         success: function(response, opts) {
@@ -148,7 +148,7 @@ var updatePropertiesPanel = function (propertiesPanel, selectedItem) {
             issueDateCombo.store.loadRawData([[forecastIssueDate]]);
             issueDateCombo.setValue(forecastIssueDate);
             Ext.Ajax.request({
-                url: iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/CurveIssueDates?curveId=' + selectedItem.data.itemId,
+                url: Settings.HostUrl + 'Formula/CurveIssueDates?curveId=' + selectedItem.data.itemId,
                 success: function(response, opts) {
                     var resp = response.responseText;
                     if (resp) {
@@ -222,12 +222,12 @@ Ext.define('iRISKClient.view.formulas.FormulaEditorController', {
         'Ext.tree.*',
         'Ext.data.*',
         'Ext.layout.container.Border',
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     init: function(application) {
         if (!functionParameterMap.IsInitialized) {
-            var url = iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/FunctionListData';
+            var url = Settings.HostUrl + 'Formula/FunctionListData';
             Ext.Ajax.request({
                 url: url,
                 success: function(response, opts) {
@@ -256,7 +256,7 @@ Ext.define('iRISKClient.view.formulas.FormulaEditorController', {
     },
 
     onSave: function (item, e, eOpts) {
-        var url = iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/StoreFormula';
+        var url = Settings.HostUrl + 'Formula/StoreFormula';
         Ext.Ajax.request({
             url: url, method: "POST", jsonData: Ext.JSON.encode(item.tree.store.root.childNodes[0].data),
             success: function(response, opts) {

@@ -5,7 +5,7 @@ Ext.define('iRISKClient.store.CurveList', {
     storeId: 'curve-list',
     proxy: {
         type: 'ajax',
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'Chart/Search',
+        url: Settings.HostUrl + 'Chart/Search',
         reader: {
             type: 'json'
         }

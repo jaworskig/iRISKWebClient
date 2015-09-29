@@ -7,8 +7,9 @@ Ext.define('iRISKClient.view.curves.FoldersTreeList', {
       'Ext.data.*',
       'Ext.layout.container.VBox',
       'Ext.layout.container.HBox',
-      'iRISKClient.Application.GlobalSettings',
-      'iRISKClient.view.curves.FoldersTreeListController'
+      'iRISKClient.util.GlobalSettings',
+      'iRISKClient.view.curves.FoldersTreeListController',
+      'iRISKClient.store.CurveFoldersTree'
     ],
     layout: {
         type: 'vbox',
@@ -62,7 +63,7 @@ Ext.define('iRISKClient.view.curves.FoldersTreeList', {
                     store: new Ext.data.TreeStore({
                         proxy: {
                             type: 'ajax',
-                            url: iRISKClient.Application.GlobalSettings.HostUrl + (
+                            url: Settings.HostUrl + (
                                 this.getCurveTreeType() == "Favorites"
                                 ? 'FavoriteExplorer/CurvesFolderData'
                                 : 'PortfolioExplorer/PortfolioTreeData?root=' + this.getCurveTreeRoot()
@@ -91,7 +92,7 @@ Ext.define('iRISKClient.view.curves.FoldersTreeList', {
 
     changeRoot: function (root) {
         var store = this.getReferences().curveFldrTreLst.store;
-        store.getProxy().setUrl(iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
+        store.getProxy().setUrl(Settings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
         store.load({scope: this, callback: function(records, operation, success) {
             //if (success)
                 //this.items.items[0].updateSnapshotData(this.items.items[0], root);

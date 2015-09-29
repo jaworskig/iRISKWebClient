@@ -24,7 +24,7 @@ Ext.define('iRISKClient.view.livepositionsnew.LivePositionsController', {
 
     init: function(view) {
         var group = view.$initParent.getTitle(),
-            url = Ext.String.format('{0}AppsForOffice/PositionSnapshot?portfolio_name={1}', iRISKClient.Application.GlobalSettings.HostUrl, group);
+            url = Ext.String.format('{0}AppsForOffice/PositionSnapshot?portfolio_name={1}', Settings.HostUrl, group);
 
         this.loadStore(url);
     },

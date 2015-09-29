@@ -78,7 +78,7 @@ var timeRenderer = function (value) {
         return "";
 };
 
-var cellBlinkColor = iRISKClient.Application.GlobalSettings.CellBlinkColor;
+var cellBlinkColor = Settings.CellBlinkColor;
 
 var livePositionsFeedToDataIndex = {
     'product': 'Product',
@@ -147,16 +147,13 @@ Ext.define('iRISKClient.view.livepositions.LivePositions', {
 
         Ext.Ajax.request({
             //async: false,
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'AppsForOffice/PositionSnapshot?portfolio_name=' + me.groupName,
+            url: Settings.HostUrl + 'AppsForOffice/PositionSnapshot?portfolio_name=' + me.groupName,
             success: function (response) {
 
                 var resp = response.responseText;
                 if (resp) {
                     returnData = Ext.JSON.decode(resp);
                     me.store.loadData([returnData.TotalValues].concat(returnData.Products));
-
-                    debugger;
-
                     me.feedProducts = me.store.data.items.map(function (item) {
                         return item.data.Name;
                     });

@@ -1,8 +1,8 @@
 Ext.define('iRISKClient.store.CurveFoldersTree', {
     extend: 'Ext.data.Store',
-    requires: [
-        'iRISKClient.Application.GlobalSettings'
-    ],
+    //requires: [
+    //    'iRISKClient.Application.GlobalSettings'
+    //],
 
     storeId: 'curveListForFolder',
     model: 'iRISKClient.model.CurveListInFolder',
@@ -10,7 +10,7 @@ Ext.define('iRISKClient.store.CurveFoldersTree', {
     autoLoad: false,
     proxy: {
         type: 'ajax',
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'FavoriteExplorer/CurvesInFolderData',
+        url: Settings.HostUrl + 'FavoriteExplorer/CurvesInFolderData',
         extraParams: {
             folderId: 15
         }

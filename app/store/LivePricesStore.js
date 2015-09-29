@@ -1,7 +1,7 @@
 Ext.define('iRISKClient.store.LivePricesStore', {
     extend: 'Ext.data.Store',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     alias: 'store.LivePriceDataStore',

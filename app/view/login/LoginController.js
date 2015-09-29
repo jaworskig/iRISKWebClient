@@ -12,7 +12,7 @@ Ext.define('iRISKClient.view.login.LoginController', {
 
 
         Ext.Ajax.request({
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Account/LoginSencha?userName=' + name + '&password=' + password,
+            url: Settings.HostUrl + 'Account/LoginSencha?userName=' + name + '&password=' + password,
             success: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
 

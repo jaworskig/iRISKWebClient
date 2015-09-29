@@ -83,7 +83,7 @@ Ext.define('iRISKClient.view.main.MainController', {
     showLogout: function () {
         var me = this;
         Ext.Ajax.request({
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Account/LogOff',
+            url: Settings.HostUrl + 'Account/LogOff',
             success: function () {
                 me.getView().destroy();
                 //Ext.widget('login');

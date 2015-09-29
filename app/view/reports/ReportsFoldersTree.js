@@ -6,7 +6,7 @@ Ext.define('iRISKClient.view.reports.FoldersTreeList', {
       'Ext.tree.*',
       'Ext.data.*',
       'Ext.layout.container.HBox',
-      'iRISKClient.Application.GlobalSettings'
+      'iRISKClient.util.GlobalSettings'
     ],
     layout: {
         type: 'hbox',
@@ -25,7 +25,7 @@ Ext.define('iRISKClient.view.reports.FoldersTreeList', {
                 store: new Ext.data.TreeStore({
                     proxy: {
                         type: 'ajax',
-                        url: iRISKClient.Application.GlobalSettings.HostUrl + 'FavoriteExplorer/RepportsFolderData'
+                        url: Settings.HostUrl + 'FavoriteExplorer/RepportsFolderData'
                     },
                     root: {
                         text: 'My Reports',

@@ -2,6 +2,10 @@ Ext.define('iRISKClient.Application', {
     extend: 'Ext.app.Application',
     name: 'iRISKClient',
 
+    controllers: [
+        'Main'
+    ],
+
     views: [
         'livepositionsnew.LivePositions',
         'livepricesnew.LivePrices'
@@ -23,7 +27,7 @@ Ext.define('iRISKClient.Application', {
         }
 
         Ext.Ajax.request({
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Account/LoginSenchaIsAuthenticated',
+            url: Settings.HostUrl + 'Account/LoginSenchaIsAuthenticated',
             success: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
 

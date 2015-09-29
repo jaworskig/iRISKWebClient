@@ -1,7 +1,7 @@
 Ext.define('iRISKClient.store.ReportFoldersTree', {
     extend: 'Ext.data.Store',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     storeId: 'reportListForFolder',
@@ -9,7 +9,7 @@ Ext.define('iRISKClient.store.ReportFoldersTree', {
     autoLoad: true,
     proxy: {
         type: 'ajax',
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'FavoriteExplorer/ReportsInFolderData',
+        url: Settings.HostUrl + 'FavoriteExplorer/ReportsInFolderData',
         extraParams: {
             folderId: 0,
             user: localStorage.getItem("UserName")

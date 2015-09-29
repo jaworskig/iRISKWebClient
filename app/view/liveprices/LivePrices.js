@@ -129,7 +129,7 @@ var timeRenderer = function (value) {
     return value;
 };
 
-var cellBlinkColor = iRISKClient.Application.GlobalSettings.CellBlinkColor;
+var cellBlinkColor = Settings.CellBlinkColor;
 
 var livePricesFeedToDataIndex = {
     productname: 'Name',
@@ -286,7 +286,7 @@ Ext.define('iRISKClient.view.liveprices.LivePrices', {
 
         Ext.Ajax.request({
             //async: false,
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'AppsForOffice/PriceSnapshot?query_type=' + queryType + '&query=' + query,
+            url: Settings.HostUrl + 'AppsForOffice/PriceSnapshot?query_type=' + queryType + '&query=' + query,
             success: function (response) {
                 //debugger;
                 var resp = response.responseText;

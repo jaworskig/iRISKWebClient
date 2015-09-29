@@ -12,7 +12,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
     ],
 
     controller: 'reportscontroller',
-
+    itemId: 'reportItem',
     reportName: null,
     reportId: null,
     reportGUID: null,
@@ -57,7 +57,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
 
         Ext.Ajax.request({
             async: false,
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/ReportData?name=' + me.reportName + '&reportTempId=' + me.reportGUID,
+            url: Settings.HostUrl + 'Report/ReportData?name=' + me.reportName + '&reportTempId=' + me.reportGUID,
             success: function (response) {
                 var resp = response.responseText;
                 if (resp) {
@@ -108,7 +108,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
                 split: me.report_split,
                 sort: me.report_sort
             },
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/PostionReportCreateNew',
+            url: Settings.HostUrl + 'Report/PostionReportCreateNew',
             success: function (response) {
                 var resp = response.responseText;
                 me.reportGUID = resp;
@@ -160,7 +160,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
         var returnData = null;
         Ext.Ajax.request({
             async: false,
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/ReportData?name=' + me.reportName + '&reportTempId=' + me.reportGUID,
+            url: Settings.HostUrl + 'Report/ReportData?name=' + me.reportName + '&reportTempId=' + me.reportGUID,
             success: function (response) {
 
                 var resp = response.responseText;
@@ -194,14 +194,14 @@ Ext.define('iRISKClient.view.reports.Reports2', {
 
     },
 
-    onZoomClick: function(){
+    onZoomClick: function () {
         var me = this,
             partConfig = me.partConfig;
 
         Ext.GlobalEvents.fireEvent('showfullscreen', 'reports', partConfig);
     },
 
-    onUnzoomClick: function(){
+    onUnzoomClick: function () {
         Ext.GlobalEvents.fireEvent('closefullscreen');
     },
 
@@ -211,7 +211,7 @@ Ext.define('iRISKClient.view.reports.Reports2', {
 
             if (me.reportGUID != null) {
                 Ext.Ajax.request({
-                    url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/PostionReportDispose?reportTempId=' + me.reportGUID
+                    url: Settings.HostUrl + 'Report/PostionReportDispose?reportTempId=' + me.reportGUID
                 });
             }
 
@@ -231,71 +231,55 @@ Ext.define('iRISKClient.view.reports.Reports2', {
                 columnresize: { fn: iRISKClient.view.main.MainController.storeLayoutBuffred, scope: this }
             });
 
-            if(!header){
+            if (!header) {
                 zoomed = true;
             }
 
-            if(!zoomed) {
-                header.addTool({
+            if (!zoomed) {
+                
+                var maxPosition = header.items.length - 1;
+
+                header.insert(maxPosition, {
+                    xtype: 'tool',
                     type: 'maximize',
-                    title: 'Zoom',
                     handler: me.onZoomClick,
                     scope: me
                 });
+
             }
             else {
                 me.addTool({
                     type: 'close',
-                    title: 'Close',
+                    tooltip: 'Close',
                     handler: me.onUnzoomClick,
                     scope: me
                 });
             }
 
-            //if (me.stateValue != undefined)
-            //    me.applyState(me.stateValue);
-
-            //layout.ownerCt.addTool({
-            //    type: 'gear',
-            //    callback: function (gridOwner) {
-            //        gridOwner.items.items[0].setHidden(true);
-            //        gridOwner.add({
-            //            xtype: 'report_config',
-            //            reportId: me.reportId
-            //        });
-            //    }
-            //});
-
-
-            //layout.ownerCt.header.insert(1, {
-            //    items: [
-            //    {
-            //      //  xtype: 'tool',
-            //        xtype: 'button',
-            //        iconCls: 'x-tool-img x-tool-gear',
-            //        text: 'Edit'
-            //    }]
-            //});
-
-            if(zoomed){
+            if (zoomed) {
                 header = me.getHeader();
             }
 
             if (header) {
 
-                header.insert(1, {
+                header.insert(0, {
                     xtype: 'button',
+                    reference: 'editButtonRef',
+                    itemId: 'editButtonItem',
                     margin: '0 5 0 0',// (top, right, bottom, left)
                     text: 'Edit',//(me.reportId > 0) ? 'Edit' : 'Save',
                     scope: this,
+
+                  
                     handler: function (btn, evt) {
 
-                        btn.setHidden(true);
-                        this.setHidden(true);
-                        this.ownerCt.add({
+                        btn.setHidden(true); 
+                        this.addDocked({
                             xtype: 'report_config',
                             reportId: me.reportId,
-                            reportGUID: me.reportGUID
+                            reportGUID: me.reportGUID,
+                            width: 350,
+                            dock: 'left'
                         });
                         evt.stopPropagation()
                         return false;

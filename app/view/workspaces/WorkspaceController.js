@@ -4,60 +4,12 @@ Ext.define('iRISKClient.view.workspaces.WorkSpaceController', {
 
     counter: 1,
 
-    onAddDashboard: function (sender) {
-        //debugger;
 
-        this.counter++;
-        var wrkSpace = this.lookupReference('centerPanel');
-
-        var tab = wrkSpace.add({
-            title: 'Tab ' + this.counter,
-            xtype: 'dashboard',
-            //stateId: 'dasboard_' + this.counter,
-            region: 'center',
-            parts: {
-                repport: {
-                    viewTemplate: {
-                        items: [{
-                            xtype: 'reports'
-                        }]
-                    }
-                },
-                liveprices: {
-                    viewTemplate: {
-                        items: [{
-                            xtype: 'liveprices'
-                        }]
-                    }
-                },
-                chart: {
-                    viewTemplate: {
-                        items: [{
-                            xtype: 'chartsLive'
-                        }]
-                    }
-                },
-                portfolio_deals: {
-                    viewTemplate: {
-                        items: [{
-                            xtype: 'portfolio_deals'
-                        }]
-                    }
-                }
-            }
-        });
-
-
-        wrkSpace.setActiveTab(tab);
-
-        //wrkSpace.doLayout(); EXTJS6
-
-    },
 
     onLeftAreaBtnClick: function (sender, event) {
         //debugger;
         var tollbar = this.view;
-
+            
         var leftArea = this.lookupReference('leftArea');
         var leftAreatabs = this.lookupReference('leftAreaTabs');
 

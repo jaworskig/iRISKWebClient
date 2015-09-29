@@ -38,10 +38,10 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
 
     onGroupDblClick: function (ttree, record, item, index, eEvent, eOpts) {
 
-        var activeTab = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTab.columnWidths != undefined) ? activeTab.columnWidths.length : 0;
+        var activeTabe = iRISKClient.view.main.MainController.getActiveDashboard();
+        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
 
-        activeTab.addView({
+        activeTabe.addView({
             type: 'livepositions',
             title: record.data.text
         }, columnIndex);
@@ -49,10 +49,10 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
 
 
     showActiveDeals: function (data) {
-        var activeTab = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTab.columnWidths != undefined) ? activeTab.columnWidths.length : 0;
+        var activeTabe = iRISKClient.view.main.MainController.getActiveDashboard();
+        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
 
-        activeTab.addView({
+        activeTabe.addView({
             type: 'portfolio_deals',
             title: data.text,
             portfolioId: data.groupId
@@ -67,6 +67,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
 
         Ext.Ajax.request({
             async: false,
+            method: "GET",
             params: {
                 groupId: data.groupId,
                 name: reportName,
@@ -74,7 +75,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorerController', {
                 split: split,
                 sort: sort
             },
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/PostionReportCreateNew',
+            url: Settings.HostUrl + 'Report/PostionReportCreateNew',
             success: function (response) {
                 var activeTab = iRISKClient.view.main.MainController.getActiveDashboard();
                 var resp = response.responseText;

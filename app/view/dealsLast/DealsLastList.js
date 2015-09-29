@@ -3,14 +3,19 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
     xtype: 'dealsLastList',
 
     requires: [
-        'Ext.grid.filters.Filters',
-        'iRISKClient.view.dealsLast.DealsLastController'
+        'iRISKClient.view.dealsLast.DealsLastListModel',
+        'iRISKClient.view.dealsLast.DealsLastListController',
+        'Ext.grid.filters.Filters'
     ],
 
-    controller: 'dealsLastController',
+    controller: 'dealsLastListController',
 
-    // selType: 'checkboxmodel',
-    // height: 300,
+    viewModel: {
+        type: 'dealslast'
+    },
+    bind: '{dealslast}',
+
+
     selModel: {
         selType: 'checkboxmodel',
         listeners: {
@@ -26,11 +31,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
                 }
             }
         }
-    },
 
-    store: {
-        type: 'dealsLastListStore',
-        autoLoad: true
     },
 
     plugins: 'gridfilters',
@@ -91,11 +92,11 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
         dataIndex: 'Status',
         renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this,
-                color = iRISKClient.Application.GlobalSettings.getStatusCellColor(value);
+                color = Settings.getStatusCellColor(value);
 
             metaData.tdStyle = 'color:' + color;
 
-            Ext.defer(function(){
+            Ext.defer(function () {
                 var cell = view.getCell(record, 0);
                 cell.setStyle('background-color', color);
             }, 200);
@@ -104,102 +105,14 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastList', {
         }
     }],
 
-    handleDealUpdate: function (message) {
-        // debugger;
 
-        if (message.hasOwnProperty("Deals")) {
-            // debugger;
-            var view = this.getView();
-            var deal = message.Deals[0];
-            var store = this.getStore();
-
-            var record = store.findRecord('DealId', deal.DealId);
-
-            //store.suspendAutoSync();
-
-            if (!record) {
-                store.add(deal);
-            } else {
-
-                for (var k in deal)
-                    if (record.get(k) != deal[k])
-                        record.set(k, deal[k]);
-            }
-
-            var row = this.getView().getRow(record);
-            var el = Ext.fly(row);
-            //el.highlight("ffff9c", {
-            //    attr: "background-color",
-            //    easing: 'easeOut',
-            //    duration: .5
-            //});
-
-            el.highlight("F4B084", { attr: 'backgroundColor', duration: 2000, easing: 'easeInOut' });
-
-            // store.commitChanges();
-            //  store.resumeAutoSync();
-        }
-    },
-
-    getStatusCellColor1: function (status) {
-
-        var nColor = "#FFFFFF";
-        switch (status) {
-            case "Pending":
-                {
-                    nColor = '#FF0000';
-                    break;
-                }
-            case "Active":
-                {
-                    nColor = '#A9D08E';
-                    break;
-                }
-            case "Approved":
-                {
-                    nColor = '#00B050';
-                    break;
-                }
-            case "Deleted":
-                {
-                    nColor = '#BFBFBF';
-                    break;
-                }
-        }
-
-        return nColor;
-    },
-
-    listeners: {
-        afterrender: function (c) {
-            // debugger;
-            HubService.SubscribeDealUpdate(this);
-        }
-    },
-
-    dockedItems: [
-    {
+    dockedItems: [{
         xtype: 'toolbar',
-
         hidden: true,
         items: [{
             text: 'EDIT',
             tooltip: 'Edit deals',
-
             handler: 'editClick'
-        }
-
-        //, '-', {
-        //    xtype: 'textfield'
-
-        //},{
-        //    reference: 'removeButton',  // The referenceHolder can access this button by this name
-        //    text: 'Search'
-        //}
-
-        ]
+        }]
     }]
-
-
-
 });

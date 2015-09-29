@@ -7,7 +7,7 @@ Ext.define('iRISKClient.view.formulas.FormulaEditor', {
       'Ext.data.*',
       'Ext.layout.container.Border',
       'Ext.panel.Tool',
-      'iRISKClient.Application.GlobalSettings'
+      'iRISKClient.util.GlobalSettings'
     ],
     height: 400,
     layout: 'border',
@@ -52,7 +52,7 @@ Ext.define('iRISKClient.view.formulas.FormulaEditor', {
                         store: new Ext.data.TreeStore({
                             proxy: {
                                 type: 'ajax',
-                                url: iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/FormulaData' + params
+                                url: Settings.HostUrl + 'Formula/FormulaData' + params
                             }
                         }),
                         rootVisible: false,
@@ -112,7 +112,7 @@ Ext.define('iRISKClient.view.formulas.FormulaEditor', {
                 title: this.$initParent.title,
                 items: [{
                     xtype: 'formulaChart',
-                    url: iRISKClient.Application.GlobalSettings.HostUrl + 'Formula/FormulaCurveData' + params,
+                    url: Settings.HostUrl + 'Formula/FormulaCurveData' + params,
                     listeners: {
 
                     }

@@ -2,7 +2,7 @@ Ext.define('iRISKClient.view.reports.ReportsTreeListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.reportsTreeListController',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     onFolderClick: function (ttree, record, item, index, eEvent, eOpts) {
@@ -28,7 +28,7 @@ Ext.define('iRISKClient.view.reports.ReportsTreeListController', {
             type = 'formula';
         else if (record.data.reportType == 'DerivedCurve')
             type = 'derived_curve';
-        if (type && iRISKClient.Application.GlobalSettings.UseFormulaEditor) {
+        if (type && Settings.UseFormulaEditor) {
             activeTabe.addView({
                 type: 'formulaeditor',
                 title: record.data.name,

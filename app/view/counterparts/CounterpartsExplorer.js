@@ -67,7 +67,7 @@ Ext.define('iRISKClient.view.counterparts.CounterpartsExplorer', {
       'Ext.data.*',
       'Ext.layout.container.HBox',
       'Ext.grid.column.Action',
-      'iRISKClient.Application.GlobalSettings',
+      'iRISKClient.util.GlobalSettings',
       'iRISKClient.view.counterparts.CounterpartsExplorerController'
     ],
     layout: {

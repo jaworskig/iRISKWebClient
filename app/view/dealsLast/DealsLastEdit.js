@@ -17,9 +17,10 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastEdit', {
     changedValue: new Object(),
 
     requires: [
-         'iRISKClient.view.dealsLast.DealsLastController'
+        'iRISKClient.store.DealsLastEdit',
+        'iRISKClient.view.dealsLast.DealsLastEditController'
     ],
-    controller: 'dealsLastController',
+    controller: 'dealsLastEditController',
 
     initComponent: function () {
         var me = this;
@@ -29,7 +30,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastEdit', {
         this.setChangedValue();
 
         Ext.Ajax.request({
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Deals/DealListData',
+            url: Settings.HostUrl + 'Deals/DealListData',
             success: function (response, opts) {
                 me.columnsSelectData = Ext.decode(response.responseText);
 
@@ -39,7 +40,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastEdit', {
         me.callParent(arguments);
     },
 
-    setChangedValue: function() {
+    setChangedValue: function () {
         this.changedValue.TraderName = null;
         this.changedValue.PorfolioName = null;
         this.changedValue.CounterpartName = null;
@@ -52,49 +53,11 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastEdit', {
 
     listeners: {
 
-        hide: function(me, eOpts) {
+        hide: function (me, eOpts) {
             me.setChangedValue();
         },
 
-        afterrender: function (layout, eOpts) {
-
-            //             debugger;
-            var me = this;
-
-
-
-
-
-            var menu = me.headerCt.getMenu();
-
-
-            menu.on('beforeshow', function (itemMenu) {
-                var currentDataIndex = menu.activeHeader.dataIndex;
-                menu.removeAll();
-
-          
-
-                //debugger;
-                var mainGrid = menu.ownerCmp.ownerCt.ownerCt;
-
-                mainGrid.columnsSelectData[currentDataIndex].forEach(function (selectValue) {
-                    menu.add({
-                        text: selectValue.Value,
-                        handler: function (ehItem) {
-                            
-                            mainGrid.getColumns().forEach(function (item) {
-                                if (item.dataIndex == currentDataIndex) {
-                                    item.setText(ehItem.text);
-                                    item.setStyle("color", "rgb(13, 122, 255)");
-                                    
-                                    mainGrid.changedValue[currentDataIndex] = selectValue.Key
-                                }
-                            });
-                        }
-                    });
-                });
-            });
-        }
+        afterrender: 'afterrender'
     },
 
     dockedItems: [{

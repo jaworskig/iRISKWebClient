@@ -1,53 +1,37 @@
-Ext.define('iRISKClient.view.dealsLast.DealsLastController', {
+Ext.define('iRISKClient.view.dealsLast.DealsLastEditController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.dealsLastController',
+    alias: 'controller.dealsLastEditController',
 
-    getStatusCellColor: function (status) {
+    afterrender: function (layout, eOpts) {
 
-        var nColor = "#FFFFFF";
-        switch (status) {
-            case "Pending":
-                {
-                    nColor = '#FF0000';
-                    break;
-                }
-            case "Active":
-                {
-                    nColor = '#A9D08E';
-                    break;
-                }
-            case "Approved":
-                {
-                    nColor = '#00B050';
-                    break;
-                }
-            case "Deleted":
-                {
-                    nColor = '#BFBFBF';
-                    break;
-                }
-        }
+        var me = this;
 
-        return nColor;
-    },
+        var menu = me.getView().headerCt.getMenu();
 
-    editClick: function (sender, event) {
+        menu.on('beforeshow', function (itemMenu) {
+            var currentDataIndex = menu.activeHeader.dataIndex;
+            menu.removeAll();
 
-        var editStore = Ext.data.StoreManager.lookup('dealsLastEditStore');
-        var editGrid = this.view.ownerCt.items.items[0];
+            //debugger;
+            var mainGrid = menu.ownerCmp.ownerCt.ownerCt;
 
-        editStore.removeAll();
+            mainGrid.columnsSelectData[currentDataIndex].forEach(function (selectValue) {
+                menu.add({
+                    text: selectValue.Value,
+                    handler: function (ehItem) {
 
-        this.view.getSelection().forEach(function (item) {
-            editStore.add(item.data);
+                        mainGrid.getColumns().forEach(function (item) {
+                            if (item.dataIndex == currentDataIndex) {
+                                item.setText(ehItem.text);
+                                item.setStyle("color", "rgb(13, 122, 255)");
+
+                                mainGrid.changedValue[currentDataIndex] = selectValue.Key
+                            }
+                        });
+                    }
+                });
+            });
         });
- 
-        var columns = editStore.getDealColumns();
-
-        editGrid.reconfigure(editStore, columns);
-
-        this.view.setVisible(false);
-        editGrid.setVisible(true);
     },
 
 
@@ -57,7 +41,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastController', {
 
         this.view.setVisible(false);
         listGrid.setVisible(true);
-     
+
         listGrid.selModel.deselectAll()
     },
 
@@ -97,7 +81,7 @@ Ext.define('iRISKClient.view.dealsLast.DealsLastController', {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Deals/DealEdit',
+            url: Settings.HostUrl + 'Deals/DealEdit',
             data: dealsEdit,
             complete: function (msg) {
                 if (msg.responseText != "") {

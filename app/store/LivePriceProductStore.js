@@ -1,7 +1,7 @@
 Ext.define('iRISKClient.store.LivePricesProductStore', {
     extend: 'Ext.data.Store',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     alias: 'store.livePricesProductDataStore',
@@ -15,7 +15,7 @@ Ext.define('iRISKClient.store.LivePricesProductStore', {
         type: 'cachedAjax',
         cacheName: 'Products',
         //noCache: false,
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'AppsForOffice/ProductQueries',
+        url: Settings.HostUrl + 'AppsForOffice/ProductQueries',
         reader: {
             type: 'json',
 

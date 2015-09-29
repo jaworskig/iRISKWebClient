@@ -6,17 +6,16 @@ Ext.define('iRISKClient.view.main.MainAppView', {
         'iRISKClient.LivePricesBuilder.Labels',
         'iRISKClient.LeftArea.Labels',
 
-        'iRISKClient.Application.GlobalSettings',
+        'iRISKClient.util.GlobalSettings',
         'iRISKClient.view.main.MainController',
         'iRISKClient.view.workspaces.WorkSpace',
         'iRISKClient.view.leftArea.LeftArea',
         'iRISKClient.view.reports.FoldersTreeList',
         'iRISKClient.view.reports.ReportsTreeListController',
         'iRISKClient.view.reports.GroupedGrid',
-        'iRISKClient.view.portfolio.PortfoliosPanel',
-        'iRISKClient.view.portfolio.PortfoliosExplorer',
-        'iRISKClient.view.curves.FoldersTreeList',
-        'iRISKClient.view.curves.GroupedGrid',
+        //'iRISKClient.view.portfolio.PortfoliosPanel',
+        //'iRISKClient.view.portfolio.PortfoliosExplorer',
+
         'iRISKClient.view.counterparts.CounterpartsExplorer',
         'iRISKClient.view.rightArea.RigthAreaPanel',
         'iRISKClient.view.dashboards.DashBoard',
@@ -27,14 +26,7 @@ Ext.define('iRISKClient.view.main.MainAppView', {
         'iRISKClient.view.liveprices.LivePricesBuilder',
 
         'iRISKClient.store.ReportFoldersTree',
-        'iRISKClient.store.CurveFoldersTree',
-        'iRISKClient.store.CounterpartsStore',
-        'iRISKClient.store.DealsLastEdit',
-        'iRISKClient.store.LivePricesProductStore',
-        'iRISKClient.store.CurveList',
 
-        //'Ext.ux.TabReorderer',
-        //'iRISKClient.store.Deals',
         'Ext.layout.container.Border',
         'Ext.dashboard.Dashboard',
         'Ext.plugin.Viewport'
@@ -57,6 +49,7 @@ Ext.define('iRISKClient.view.main.MainAppView', {
                 region: 'center',
                 xtype: 'tabpanel',
                 reference: 'mainArea',
+                itemId: 'mainArea',
                 stateful: true,
                 stateId: 'mainTabPanel',
                 items: [
@@ -68,18 +61,10 @@ Ext.define('iRISKClient.view.main.MainAppView', {
                         stateId: 'workspace_1'
                     },
                     {
-                        title: '2',
-                        xtype: 'workspace',
-                        reference: 'workspace_2',
-                        stateful: true,
-                        stateId: 'workspace_2'
+                        title: '2'
                     },
                     {
-                        title: '3',
-                        //xtype: 'workspace',
-                        reference: 'workspace_3',
-                        stateful: true,
-                        stateId: 'workspace_3'
+                        title: '3'
                     },
                     {
                         title: '4'

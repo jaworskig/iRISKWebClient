@@ -2,7 +2,7 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.foldersTreeListController',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     onitemclick: function (ttree, record, item, index, eEvent, eOpts) {
@@ -10,12 +10,12 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
         var treePanel = this.lookupReference('curveTreeList');
         var store = treePanel.getStore();
         if (this.view.getCurveTreeType() == "Favorites") {
-            store.proxy.url = iRISKClient.Application.GlobalSettings.HostUrl + 'FavoriteExplorer/CurvesInFolderData';
+            store.proxy.url = Settings.HostUrl + 'FavoriteExplorer/CurvesInFolderData';
             store.proxy.extraParams = { folderId: record.id };
             store.reload();
         }
         else if (this.view.getCurveTreeType() == "Portfolios") {
-            store.proxy.url = iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioCurvesData';
+            store.proxy.url = Settings.HostUrl + 'PortfolioExplorer/PortfolioCurvesData';
             store.proxy.extraParams = { portfolioId: record.data.groupId };
             store.reload();
         }
@@ -27,12 +27,12 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
         var textField = this.lookupReference('curveSearchText');
         var searchText = textField.getValue();
         if (this.view.getCurveTreeType() == "Favorites") {
-            store.proxy.url = iRISKClient.Application.GlobalSettings.HostUrl + 'CurveExplorer/CurvesByNameSearchData';
+            store.proxy.url = Settings.HostUrl + 'CurveExplorer/CurvesByNameSearchData';
             store.proxy.extraParams = { searchText: searchText };
             store.reload();
         }
         else if (this.view.getCurveTreeType() == "Portfolios") {
-            store.proxy.url = iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioCurvesSearchData';
+            store.proxy.url = Settings.HostUrl + 'PortfolioExplorer/PortfolioCurvesSearchData';
             store.proxy.extraParams = { searchText: searchText };
             store.reload();
         }
@@ -49,7 +49,7 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
         var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
         
 
-        if (iRISKClient.Application.GlobalSettings.UseFormulaEditor) {
+        if (Settings.UseFormulaEditor) {
             activeTabe.addView({
                 type: 'formulaeditor',
                 title: record.data.name,

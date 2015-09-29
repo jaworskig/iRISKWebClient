@@ -1,9 +1,10 @@
 Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
-    extend: 'Ext.Container',
+    extend: 'Ext.Panel',
     xtype: 'chartsLive',
     requires: [
-        'iRISKClient.view.chartsLive.ChartLiveController',
-        'Ext.container.Container'
+      'iRISKClient.view.chartsLive.ChartLiveController',
+      'iRISKClient.store.CurveList',
+      'Ext.container.Container'
     ],
     controller: 'chartsLive',
     config: {
@@ -22,6 +23,7 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
     dateInterval: null,
     defaultResolution: null,
 
+
     constructor: function (cfg) {
 
         var me = this,
@@ -31,11 +33,10 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         me.curveName = partConfig.title;
         me.defaultResolution = partConfig.resolution;
 
+
         var now = new Date();
         me.dateRange = new Date(new Date(now).setMonth(now.getMonth() - 3));
-
         me.feedProducts.push(me.curveName);
-
         HubService.SubscribeFeedArray(me.feedProducts, me);
 
         me.partConfig = partConfig;
@@ -54,13 +55,13 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
         afterrender: function (layout, eOpts) {
             var me = this,
-                header = me.container.component.header,
-                partConfig = me.partConfig,
-                zoomed = false;
+                  header = me.getHeader(),//me.container.component.header,
+                  partConfig = me.partConfig,
+                  zoomed = false;
 
             Ext.suspendLayouts();
 
-            if(!header){
+            if (!header) {
                 header = me.add({
                     xtype: 'header',
                     baseCls: 'x-panel-header',
@@ -87,7 +88,8 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
             me.curveStudiesMenu(header, me);
 
-            if(!zoomed) {
+
+            if (!zoomed) {
                 header.addTool({
                     type: 'maximize',
                     title: 'Zoom',
@@ -112,12 +114,10 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
             me.stxx = new STXChart({ container: me.chartContainer, layout: { "crosshair": true } });
 
-
-
             var startDate = new Date();
             startDate.setMonth(startDate.getMonth() - 3);
 
-            var chartIQUrl = iRISKClient.Application.GlobalSettings.HostUrl + "Chart/ChartIQ";
+            var chartIQUrl = Settings.HostUrl + "Chart/ChartIQ";
             me.stxx.attachQuoteFeed(new STX.QuoteFeed.MyFeed(chartIQUrl, startDate), {
                 refreshInterval: 0
             });
@@ -181,14 +181,15 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
         }
     },
 
-    onZoomClick: function(){
+
+    onZoomClick: function () {
         var me = this,
             partConfig = me.partConfig;
 
         Ext.GlobalEvents.fireEvent('showfullscreen', 'chartsLive', partConfig);
     },
 
-    onUnzoomClick: function(){
+    onUnzoomClick: function () {
         Ext.GlobalEvents.fireEvent('closefullscreen');
     },
 
@@ -805,7 +806,7 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
         Ext.Ajax.request({
             async: false,
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'chart/StudyList',
+            url: Settings.HostUrl + 'chart/StudyList',
             success: function (response) {
                 var resp = response.responseText;
                 if (resp) {
@@ -818,7 +819,7 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
                                 Ext.Ajax.request({
                                     async: false,
-                                    url: iRISKClient.Application.GlobalSettings.HostUrl + 'chart/GetStudy?id=2',
+                                    url: Settings.HostUrl + 'chart/GetStudy?id=2',
                                     success: function (response) {
                                         me.applyStudy(response);
                                     }

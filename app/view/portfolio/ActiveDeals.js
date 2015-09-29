@@ -1,10 +1,10 @@
-Ext.define('iRISKClient.view.portfolio.Deals', {
+Ext.define('iRISKClient.view.portfolio.Deals1', {
     extend: 'Ext.grid.Panel',
-    xtype: 'portfolio_deals',
+    xtype: 'portfolio_deals1',
 
     requires: [
-      'Ext.grid.filters.Filters',
-      'Ext.toolbar.Paging'
+      'Ext.grid.filters.Filters'
+      //'Ext.toolbar.Paging'
     ],
 
     portfolioId: -1,
@@ -17,7 +17,7 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
     //    type: 'dealsPortfolio',
     //    autoLoad: true
     //  },
-    sortableColumns: false,
+    sortableColumns: true,
     plugins: 'gridfilters',
     stripeRows: true,
     columnLines: true,
@@ -38,9 +38,14 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
             store: store,
 
             columns: [
+                {
+                    xtype: 'rownumberer',
+                    width: 50,
+                    sortable: false
+                },
               {
                   text: 'DealId',
-                  sortable: false,
+                  sortable: true,
                   dataIndex: 'DealId'
               }, {
                   text: 'ContractNr',
@@ -84,7 +89,7 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
                   dataIndex: 'Status',
                   renderer: function (value, metaData) {
                       //debugger;
-                      metaData.tdStyle = 'color:' + iRISKClient.Application.GlobalSettings.getStatusCellColor(value);
+                      metaData.tdStyle = 'color:' + Settings.getStatusCellColor(value);
                       return value;
                   }
                   //  filter: 'list'
@@ -96,7 +101,7 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
               }, {
                   text: 'Product',
                   //    flex: 1,
-                  sortable: false,
+                  sortable: true,
                   dataIndex: 'Product',
                   filter: 'list'
               }, {
@@ -125,7 +130,7 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
               }, {
                   text: 'Quantity',
                   //   flex: 1,
-                  sortable: false,
+                 // sortable: true,
                   dataIndex: 'Quantity'
               }, {
                   text: 'MTM',
@@ -173,11 +178,11 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
               }
             ],
 
-            bbar: Ext.create('Ext.PagingToolbar', {
+            bbar: Ext.create('Ext.Toolbar', {
                 store: store,
-                displayInfo: false,
-                displayMsg: 'Displaying deals {0} - {1} of {2}',
-                emptyMsg: "No deals to display",
+              //  displayInfo: false,
+              //  displayMsg: 'Displaying deals {0} - {1} of {2}',
+             //   emptyMsg: "No deals to display",
                 //items: [
                 //    {
                 //        xtype: 'component',
@@ -310,7 +315,7 @@ Ext.define('iRISKClient.view.portfolio.Deals', {
 
                         $.ajax({
                             type: "POST",
-                            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Portfolio/DealListExport',
+                            url: Settings.HostUrl + 'Portfolio/DealListExport',
                             cache: false,
                             data: JSON.stringify(dataJson),
                             success: function (retData) {

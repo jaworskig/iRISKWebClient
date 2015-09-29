@@ -3,7 +3,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosPanel', {
     xtype: 'portfoliosPanel',
     requires: [
       'Ext.layout.container.VBox',
-      'iRISKClient.Application.GlobalSettings',
+      'iRISKClient.util.GlobalSettings',
       'iRISKClient.Portfolio.Labels'
     ],
     layout: {

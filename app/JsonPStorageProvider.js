@@ -6,7 +6,7 @@ Ext.define('iRISKClient.util.JsonPStorageProvider', {
 
     config: {
         userId: null,
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'Storage/StateProvider',
+        url: Settings.HostUrl + 'Storage/StateProvider',
         timeout: 30000
     },
 

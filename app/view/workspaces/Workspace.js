@@ -7,7 +7,7 @@ Ext.define('iRISKClient.view.workspaces.WorkSpace', {
     layout: 'border',
     controller: 'workspace',
     requires: [
-        'iRISKClient.Application.GlobalSettings'
+        'iRISKClient.util.GlobalSettings'
     ],
 
     requires: [
@@ -30,7 +30,7 @@ Ext.define('iRISKClient.view.workspaces.WorkSpace', {
                     stateId: 'leftArea_' + me.stateId,
                     reference: 'leftArea'
 
-                }, iRISKClient.Application.GlobalSettings.UseFormulaEditor ? {
+                }, Settings.UseFormulaEditor ? {
                     xtype: 'functions',
                     stateId: 'functions_' + me.stateId
                 } : {

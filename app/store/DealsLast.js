@@ -6,7 +6,7 @@ Ext.define('iRISKClient.store.DealsLastList', {
 
     proxy: {
         type: 'ajax',
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'Deals/TestDealListInitData',
+        url: Settings.HostUrl + 'Deals/TestDealListInitData',
         reader: {
             type: 'json',
             rootProperty: 'Deals'
@@ -87,7 +87,7 @@ Ext.define('iRISKClient.store.DealsLastEdit', {
                 text: 'Status',
                 dataIndex: 'Status',
                 renderer: function(value, metaData) {
-                    metaData.tdStyle = 'color:' + iRISKClient.Application.GlobalSettings.getStatusCellColor(value);
+                    metaData.tdStyle = 'color:' + Settings.getStatusCellColor(value);
                     return value;
                 }
             }

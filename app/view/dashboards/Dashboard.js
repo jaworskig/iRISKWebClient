@@ -29,13 +29,13 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
             liveprices: {
                 viewTemplate: {
                     items: [{
-                        //xtype: 'liveprices',
                         xtype: 'livepricesnew'
                     }]
                 }
             },
             chart: {
                 viewTemplate: {
+                    header: false,
                     items: [
                         {
                             xtype: 'chartsLive'
@@ -55,7 +55,6 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
             livepositions: {
                 viewTemplate: {
                     items: [{
-                        //xtype: 'livepositions',
                         xtype: 'livepositionsnew'
                     }]
                 }

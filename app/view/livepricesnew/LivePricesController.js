@@ -24,7 +24,7 @@ Ext.define('iRISKClient.view.livepricesnew.LivePricesController', {
     init: function(view) {
         var title = view.$initParent.getTitle(),
             params = title.split(':'),
-            url = Ext.String.format('{0}AppsForOffice/PriceSnapshot?query_type={1}&query={2}', iRISKClient.Application.GlobalSettings.HostUrl, params[0], params[1]);
+            url = Ext.String.format('{0}AppsForOffice/PriceSnapshot?query_type={1}&query={2}', Settings.HostUrl, params[0], params[1]);
 
         this.loadStore(url);
     },

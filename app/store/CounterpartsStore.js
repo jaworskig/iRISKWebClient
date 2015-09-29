@@ -1,15 +1,15 @@
 Ext.define('iRISKClient.store.CounterpartsStore', {
     extend: 'Ext.data.Store',
-    requires: [
-        'iRISKClient.Application.GlobalSettings'
-    ],
+    //requires: [
+    //    'iRISKClient.Util.GlobalSettings'
+    //],
 
     storeId: 'counterpartsDataStore',
     model: 'iRISKClient.model.CounterpartsModel',
     autoLoad: true,
     proxy: {
         type: 'ajax',
-        url: iRISKClient.Application.GlobalSettings.HostUrl + 'Report/CounterpartListData',
+        url: Settings.HostUrl + 'Report/CounterpartListData',
         reader: {
             type: 'json',
             root: 'ReportList',

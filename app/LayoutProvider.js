@@ -15,7 +15,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     },
 
     storeLayout: function () {
-
+        var me = this;
         try {
 
             console.log("Storing layout");
@@ -64,7 +64,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                                         state.height = dashboardColumnState.height;
                                         // debugger;
 
-                                        var valueType = iRISKClient.App.LayoutProvider.storeConteiner(columnItem, state);
+                                        var valueType = me.storeConteiner(columnItem, state);
 
                                         columnItems.push({
                                             type: columnItem._partConfig.type,
@@ -103,7 +103,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
             localStorage.setItem("StoredLayout", jsLayout);
 
             Ext.Ajax.request({
-                url: iRISKClient.Application.GlobalSettings.HostUrl + 'Account/SenchaLayoutStoreSave',
+                url: Settings.HostUrl + 'Account/SenchaLayoutStoreSave',
                 method: 'POST',
                 params: {
                     layout: jsLayout
@@ -217,13 +217,16 @@ Ext.define('iRISKClient.App.LayoutProvider', {
         myMask.show();
 
         Ext.Ajax.request({
-            url: iRISKClient.Application.GlobalSettings.HostUrl + 'Account/SenchaLayoutStoreGet',
+            url: Settings.HostUrl + 'Account/SenchaLayoutStoreGet',
+            method: "GET",
             success: function (response, opts) {
 
                 var layout = JSON.parse(JSON.parse(response.responseText));
 
                 try {
+                    Ext.suspendLayouts();
                     me.restore(layout);
+                    Ext.resumeLayouts();
                     myMask.hide();
                 } catch (ex) {
                     myMask.hide();

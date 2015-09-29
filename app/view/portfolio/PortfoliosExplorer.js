@@ -45,7 +45,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
       'Ext.data.*',
       'Ext.layout.container.HBox',
       'Ext.grid.column.Action',
-      'iRISKClient.Application.GlobalSettings',
+      'iRISKClient.util.GlobalSettings',
       'iRISKClient.view.portfolio.PortfoliosExplorerController'
     ],
     layout: {
@@ -72,7 +72,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
                 store: new Ext.data.TreeStore({
                     proxy: {
                         type: 'ajax',
-                        url: iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + portfoliosRoot
+                        url: Settings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + portfoliosRoot
                     }
                 }),
                 handleLiveUpdateFeed: function (message) {
@@ -100,7 +100,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
 
                 updateSnapshotData: function (context, root) {
                     $.ajax({
-                        url: iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeSnapshot?root=' + portfoliosRoot,
+                        url: Settings.HostUrl + 'PortfolioExplorer/PortfolioTreeSnapshot?root=' + portfoliosRoot,
                         type: 'POST',
                         async: true,
                         cache: false,
@@ -152,7 +152,7 @@ Ext.define('iRISKClient.view.portfolio.PortfoliosExplorer', {
 
     changeRoot: function (root) {
         var store = this.getReferences().portfoliosTreePanel.store;
-        store.getProxy().setUrl(iRISKClient.Application.GlobalSettings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
+        store.getProxy().setUrl(Settings.HostUrl + 'PortfolioExplorer/PortfolioTreeData?root=' + root);
         store.load({scope: this, callback: function(records, operation, success) {
             if (success)
                 this.getReferences().portfoliosTreePanel.updateSnapshotData(this.items.items[0], root);

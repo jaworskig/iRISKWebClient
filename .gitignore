@@ -1,0 +1,16 @@
+# os
+.DS_Store
+.log
+
+# ide
+.idea
+
+# sencha
+build/
+ext/
+bootstrap.*
+classic.json
+modern.json
+
+# unit tests
+unit-tests/_jasmine-errors.txt

@@ -18,6 +18,9 @@ Ext.define('iRISKClient.view.portfolionew.panel.PortfolioPanel', {
         {
             xtype: 'tabbar',
             dock: 'top',
+            defaults: {
+                closable: false
+            },
             items: [
                 {
                     bind: {

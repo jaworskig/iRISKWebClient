@@ -1011,6 +1011,8 @@ $include-iriskclient-model-reportconfigurationmodel: dynamic(true);;
 $include-iriskclient-model-reportlistinfolder: dynamic(true);;
 $include-iriskclient-model-reportmodel: dynamic(true);;
 $include-iriskclient-model-textvaluemodel: dynamic(true);;
+$include-iriskclient-overrides-data-connection: dynamic(true);;
+$include-iriskclient-proxy-cachedrestproxy: dynamic(true);;
 $include-iriskclient-store-counterpartsstore: dynamic(true);;
 $include-iriskclient-store-curvefolderstree: dynamic(true);;
 $include-iriskclient-store-curvelist: dynamic(true);;
@@ -1067,6 +1069,8 @@ $include-iriskclient-view-main-mainappview: dynamic(true);;
 $include-iriskclient-view-main-maincontroller: dynamic(true);;
 $include-iriskclient-view-mainnew-header: dynamic(true);;
 $include-iriskclient-view-mainnew-main: dynamic(true);;
+$include-iriskclient-view-mainnew-maincontroller: dynamic(true);;
+$include-iriskclient-view-mainnew-mainmodel: dynamic(true);;
 $include-iriskclient-view-markets-markets: dynamic(true);;
 $include-iriskclient-view-markets-marketscontroler: dynamic(true);;
 $include-iriskclient-view-portfolio-deals1: dynamic(true);;
@@ -1162,6 +1166,14 @@ $current-package: 'iRISK-dark-theme';
 $current-resource-root: $iRISK-dark-theme-resource-root;
 $relative-image-path-for-uis: $iRISK-dark-theme-resource-path;
 @import '../../../../../packages/iRISK-dark-theme/sass/etc/all';
+
+/* including package iRISKClient */
+$iRISKClient-resource-root: '' !default;
+$iRISKClient-resource-path: 'images' !default;
+$current-package: false;
+$current-resource-root: $iRISKClient-resource-root;
+$relative-image-path-for-uis: $iRISKClient-resource-path;
+@import '../../../../../sass/etc/all';
 
 
 /* ======================== VAR ======================== */
@@ -1551,3 +1563,11 @@ $relative-image-path-for-uis: $ux-resource-path;
 @import '../../../../../ext/packages/ux/classic/sass/src/grid/SubTable';
 @import '../../../../../ext/packages/ux/classic/sass/src/layout/ResponsiveColumn';
 @import '../../../../../ext/packages/ux/classic/sass/src/rating/Picker';
+
+/* including package iRISKClient */
+$iRISKClient-resource-root: '' !default;
+$iRISKClient-resource-path: 'images' !default;
+$current-package: false;
+$current-resource-root: $iRISKClient-resource-root;
+$relative-image-path-for-uis: $iRISKClient-resource-path;
+@import '../../../../../sass/src/view/mainnew/Main';

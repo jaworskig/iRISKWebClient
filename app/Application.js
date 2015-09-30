@@ -2,6 +2,10 @@ Ext.define('iRISKClient.Application', {
     extend: 'Ext.app.Application',
     name: 'iRISKClient',
 
+    requires: [
+        'iRISKClient.overrides.data.Connection'
+    ],
+
     controllers: [
         'Main'
     ],
@@ -13,9 +17,17 @@ Ext.define('iRISKClient.Application', {
         'mainnew.Main'
     ],
 
+    lastUpdateCount: 0,
+
+    iRISKServerConnected: true,
+
+    lastServerUpdateCount: 0,
+
     launch: function () {
         var me = this,
             params = Ext.Object.fromQueryString(window.location.hash.replace('#', ''));
+
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
         // Check whether the browser supports LocalStorage
         // It's important to note that this type of application could use
@@ -71,6 +83,52 @@ Ext.define('iRISKClient.Application', {
             });
 
         }
+
+        // Start the clock activity
+        var task = Ext.TaskManager.start({
+            run: me.onUpdateClock,
+            interval: 10000
+        });
+    },
+
+    onUpdateClock: function(){
+        var me = this,
+            dateNow = Date.now(),
+            dateDiff = (dateNow - HubService.lastServerUpdate),
+            connectionState = 'no connection';
+
+        if (HubService.lastServerUpdate) {
+
+            console.log("dateDiff: " + dateDiff);
+
+            if (dateDiff > 20000) {
+                me.iRISKServerConnected = false;
+
+                console.log("dateDiff: " + dateDiff);
+                console.log("No connection to server");
+            } else {
+
+                if (!me.iRISKServerConnected) {
+                    me.iRISKServerConnected = true;
+                    connectionState = 'connected';
+
+
+                    if (lastServerUpdateCount > HubService.serverUpdateCount) {
+
+                        console.log("lastServerUpdateCount > HubService.serverUpdateCount: " + me.lastServerUpdateCount + " > " + HubService.serverUpdateCount);
+
+                        me.lastServerUpdateCount = HubService.serverUpdateCount;
+
+                        Ext.GlobalEvents.fireEvent('reinitializefeeds');
+                    }
+
+                } else {
+                    me.lastServerUpdateCount = HubService.serverUpdateCount;
+                }
+            }
+        }
+
+        Ext.GlobalEvents.fireEvent('connectionstatechange', connectionState);
     },
 
     onAuthenticated: function(){

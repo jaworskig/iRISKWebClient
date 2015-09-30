@@ -8,8 +8,8 @@ Ext.define('iRISKClient.controller.Main', {
     },
     refs: [
         {
-            ref: 'mainArea',
-            selector: 'app-main #mainArea'
+            ref: 'workspace',
+            selector: 'app-main workspace'
         }
     ],
 
@@ -49,8 +49,7 @@ Ext.define('iRISKClient.controller.Main', {
     },
     getActiveTab: function () {
         var me = this,
-            mainArea = me.getMainArea(),
-            workspace = mainArea.getActiveTab(),
+            workspace = me.getWorkspace(),
             mainPanel = workspace.lookupReference('centerPanel');
 
         return mainPanel.getActiveTab();

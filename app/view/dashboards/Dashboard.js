@@ -97,36 +97,11 @@ Ext.define('iRISKClient.view.dashboards.DashBoard', {
             }]);
 
 
-
+            /* TODO: RESTORE AFTER THE REFACTORING
             this.on({
                 statesave: { fn: iRISKClient.view.main.MainController.storeLayoutBuffred, scope: this }
             });
-
-            //layout.getActiveTab().addView({
-            //    type: 'repport',
-            //    title: 'BX1'
-            //}, 0);
-
-            ////debugger;
-            //layout.getActiveTab().addView({
-            //    type: 'repport',
-            //    title: 'BX1'
-            //}, 1);
-
-            //layout.getActiveTab().addView({
-            //    type: 'liveprices',
-            //    title: 'ICE BRN'
-            //});
-
-            //layout.getActiveTab().addView({
-            //    type: 'chartsLive',
-            //    title: 'ENOYR-16'
-            //});
-
-            //layout.getActiveTab().addView({
-            //    type: 'repport',
-            //    title: 'Stockholm'
-            //}, 2);
+            */
         }
     }
 });

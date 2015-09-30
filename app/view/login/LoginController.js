@@ -3,39 +3,23 @@ Ext.define('iRISKClient.view.login.LoginController', {
     alias: 'controller.login',
 
     onLoginClick: function (sender) {
+        var me = this,
+            form = me.lookupReference('form'),
+            baseForm = form.getForm(),
+            name = baseForm.findField("username").getValue(),
+            password = baseForm.findField("password").getValue();
 
-        var me = this;
-        var form = this.lookupReference('form');
+        /* Fire the global application event the Main controller is listening for that allows
+           the user to authenticate. */
+        Ext.GlobalEvents.fireEvent('authenticate', name, password, me.onAuthenticated.bind(this),
+            function(response){
+                baseForm.findField("info").setValue('server-side failure with status code ' + response.status);
+            });
 
-        var name = form.getForm().findField("username").getValue();
-        var password = form.getForm().findField("password").getValue();
+    },
 
-
-        Ext.Ajax.request({
-            url: Settings.HostUrl + 'Account/LoginSencha?userName=' + name + '&password=' + password,
-            success: function (response, opts) {
-                var obj = Ext.decode(response.responseText);
-
-                if (obj.IsAuthenticated) {
-
-                    localStorage.setItem("UserName", name);
-
-                    // Remove Login Window
-                    me.getView().destroy();
-
-                    // Add the main view to the viewport
-                    //Ext.widget('app-main');
-                    Ext.create({ xtype: 'app-main' });
-
-                } else {
-                    form.getForm().findField("info").setValue(obj.Description);
-                }
-
-            },
-
-            failure: function (response, opts) {
-                form.getForm().findField("info").setValue('server-side failure with status code ' + response.status);
-            }
-        });
+    onAuthenticated: function(){
+        this.getView().destroy();
+        Ext.create({ xtype: 'app-main' });
     }
 });

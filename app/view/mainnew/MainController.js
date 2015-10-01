@@ -23,18 +23,51 @@ Ext.define('iRISKClient.view.mainnew.MainController', {
     },
 
     onConnectionStateChange: function(status){
-        debugger;
         this.setWsState(status);
     },
 
+    // ANDREA: Not really clear the logic here, so I need to leave this as it is.
     onReinitializeFeeds: function(){
+        var me = this,
+            workspace = me.lookupReference('workspace'),
+            mainPanel = workspace.lookupReference('centerPanel'),
+            container, feedProducts;
 
-        //TODO
+        console.log("Subscribe portfolio feed list");
+        HubService.ReSubscribeFeedPortfolio();
+
+        if (mainPanel) {
+
+            mainPanel.items.items.forEach(function (tab) {
+
+                tab.items.items.forEach(function (item) {
+
+                    if (item.initialCls == "x-dashboard-column") {
+
+                        var columnItem = item.items.items[0];
+
+                        if (columnItem && columnItem.items) {
+
+                            container = columnItem.items.items[0];
+                            feedProducts = container.feedProducts;
+
+                            if (feedProducts) {
+
+                                console.log("Subscribe feed list for conteiner id:" + container.id);
+                                HubService.SubscribeFeedArray(feedProducts, container);
+                            }
+                        }
+
+                    }
+
+                });
+            });
+        }
 
     },
 
     onAfterRender: function(){
-        //iRISKClient.App.LayoutProvider.restoreLayout();
+        iRISKClient.App.LayoutProvider.restoreLayout();
     },
 
     onItemChange: function(tabbar, tab, oldTab){

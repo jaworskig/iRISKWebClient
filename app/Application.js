@@ -113,7 +113,7 @@ Ext.define('iRISKClient.Application', {
                     connectionState = 'connected';
 
 
-                    if (lastServerUpdateCount > HubService.serverUpdateCount) {
+                    if (me.lastServerUpdateCount > HubService.serverUpdateCount) {
 
                         console.log("lastServerUpdateCount > HubService.serverUpdateCount: " + me.lastServerUpdateCount + " > " + HubService.serverUpdateCount);
 

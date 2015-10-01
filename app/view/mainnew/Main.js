@@ -2,6 +2,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
     extend: 'Ext.Panel',
     plugins: 'viewport',
     xtype: 'app-main',
+    id: 'irisk-main-view',
     requires: [
         'iRISKClient.view.mainnew.MainModel',
         'iRISKClient.view.mainnew.MainController',
@@ -87,7 +88,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
 
                 {
                     xtype: 'component',
-                    id: 'feed-status-text', // GLOBAL ID SHOULD BE AVOIDED. KEEPING HERE FOR RETRO-COMPATIBILITY
+                    id: 'feed-status-text',
                     cls: 'irisk-feed-status',
                     padding: 3
                 },
@@ -127,6 +128,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
     items: [
         {
             xtype: 'workspace',
+            reference: 'workspace',
             stateful: true
         }
     ],

@@ -17,6 +17,8 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     storeLayout: function () {
         var me = this,
             mainView = me.getMainView();
+
+        /* TODO: This need to be adapted to the new architecture
         try {
 
             console.log("Storing layout");
@@ -126,7 +128,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
             //   myMask.hide();
             alert("State saved error: " + err);
         }
-
+        */
 
     },
 

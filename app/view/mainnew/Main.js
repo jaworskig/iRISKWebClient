@@ -6,7 +6,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
     requires: [
         'iRISKClient.view.mainnew.MainModel',
         'iRISKClient.view.mainnew.MainController',
-        'iRISKClient.view.workspaces.WorkSpace',
+        'iRISKClient.view.dashboardsnew.Dashboard',
         'Ext.tab.Bar'
     ],
     controller: 'mainnew',
@@ -15,7 +15,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
     },
     stateful: true,
     stateId: 'main',
-    layout: 'fit',
+    layout: 'border',
     dockedItems: [
         {
             xtype: 'tabbar',
@@ -125,14 +125,45 @@ Ext.define('iRISKClient.view.mainnew.Main', {
             }
         }
     ],
-    items: [
-        {
-            xtype: 'workspace',
-            reference: 'workspace',
-            stateful: true
-        }
-    ],
     listeners: {
         afterrender: 'onAfterRender'
+    },
+
+    initComponent: function(){
+        var me = this,
+            formulaEditor = Settings.UseFormulaEditor,
+            items = [];
+
+        items = [
+            {
+                xtype: 'leftArea',
+                reference: 'leftArea'
+            },
+            {
+                xtype: 'iriskdashboard',
+                reference: 'dashboard',
+                region: 'center'
+            },
+            {
+                region: 'south',
+                xtype: 'bottomTollbar',
+                collapseMode: 'header'
+            }
+        ];
+
+        if(formulaEditor){
+            items.push({
+                xtype: 'functions'
+            });
+        }
+        else {
+            items.push({
+                xtype: 'rightAreaPnl'
+            });
+        }
+
+        me.items = items;
+
+        me.callParent(arguments);
     }
 });

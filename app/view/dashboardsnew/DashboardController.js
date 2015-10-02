@@ -26,17 +26,18 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
         tab = view.add({
             reference: 'fullscreentab',
-            title: 'Fullscreen'
+            title: 'Fullscreen',
+            items: [
+                {
+                    xtype: xtype,
+                    partConfig: partConfig
+                }
+            ]
         });
 
         view.setActiveItem(tab);
 
         tabBar.hide();
-
-        tab.add({
-            xtype: xtype,
-            partConfig: partConfig
-        });
     },
 
     onCloseFullScreen: function () {
@@ -105,7 +106,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         card = view.add({
             xtype: 'dashboard',
             reference: cardReference,
-            columnWidths: [0.5, 0.5],
+            columnWidths: [ 0.5, 0.40, 0.25 ],
             parts: {
                 repport: {
                     viewTemplate: {
@@ -138,7 +139,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             }
         });
 
-        tabBar.setActiveTab(tab, index === 1);
+        tabBar.setActiveTab(tab, true);
 
         view.setActiveItem(card);
 
@@ -148,6 +149,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
     },
 
     onTabCloseClick: function(tabbar, tab){
+        debugger;
         var me = this,
             cache = me.cachedTabs,
             reference = tab.getReference() + 'Card',

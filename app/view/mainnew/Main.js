@@ -53,7 +53,7 @@ Ext.define('iRISKClient.view.mainnew.Main', {
                     editable: false,
                     minChars: 0,
                     bind: {
-                            store: '{products}'
+                        store: '{products}'
                     },
                     displayField: 'name',
                     valueField: 'name',

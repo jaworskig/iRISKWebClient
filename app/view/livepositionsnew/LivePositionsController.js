@@ -31,7 +31,13 @@ Ext.define('iRISKClient.view.livepositionsnew.LivePositionsController', {
 
     handleLiveUpdateFeed: function (message) {
         var me = this,
-            store = me.getStore('livestore'),
+            view = me.getView();
+
+        if(!view){
+            return false;
+        }
+
+        var store = me.getStore('livestore'),
             productName = message.ProductName,
             now = new Date(),
             today = new Date(now.getFullYear(), now.getMonth(), now.getDate()),

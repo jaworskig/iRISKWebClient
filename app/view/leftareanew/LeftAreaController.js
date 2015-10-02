@@ -1,8 +1,9 @@
 Ext.define('iRISKClient.view.leftareanew.LeftAreaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.leftareanew',
-
-    cachedTabs: {},
+    mixins: [
+        'iRISKClient.mixin.CachedTabs'
+    ],
 
     init: function(view){
         this.initPlacheolderButtons();
@@ -10,32 +11,6 @@ Ext.define('iRISKClient.view.leftareanew.LeftAreaController', {
 
     onCollapseClick: function(){
         this.getView().collapse();
-    },
-
-    onItemChange: function(tabbar, tab){
-        var me = this,
-            view = me.getView(),
-            layout = view.getLayout(),
-            activeTab = layout.getActiveItem(),
-            type = tab.itemType,
-            cache = me.cachedTabs,
-            newTab = cache[type],
-            cachedTab, cachedType;
-
-        Ext.suspendLayouts();
-
-        if(!newTab){
-            newTab = Ext.widget(type);
-        }
-
-        cachedTab = view.remove(activeTab, false);
-        cachedType = cachedTab.getXType();
-
-        view.setActiveItem(newTab);
-
-        me.cachedTabs[cachedType] = cachedTab;
-
-        Ext.resumeLayouts();
     },
 
     onExpand: function(panel){

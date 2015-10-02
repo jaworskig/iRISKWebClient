@@ -16,124 +16,99 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
     storeLayout: function () {
         var me = this,
-            mainView = me.getMainView();
-
-        /* TODO: This need to be adapted to the new architecture
-        try {
-
-            console.log("Storing layout");
-
-            if (this.initLoad)
-                return;
-
-
-
-            //var myMask = new Ext.LoadMask({
-            //    msg: 'Storing layout, Please wait...',
-            //    target: mainView
-            //});
-
-            //myMask.show();
-
-            var layout = {
+            mainView = me.getMainView(),
+            dashboard = mainView.down('iriskdashboard'),
+            controller = dashboard.getController(),
+            tabs = controller.getTabs(),
+            dashboards = [],
+            layout = {
                 workspaces: []
+            },
+            i, tab, items, jsLayout;
+
+        console.log("Storing layout");
+
+        if (this.initLoad)
+            return;
+
+        var myMask = new Ext.LoadMask({
+            msg: 'Storing layout, Please wait...',
+            target: mainView
+        });
+
+        myMask.show();
+
+        // Loop though the dashboard tabs
+        for(var key in tabs){
+            tab = tabs[key];
+
+            var dashboard = {
+                columnWidths: [],
+                columns: []
             };
-            //debugger;
-            mainView.items.items.forEach(function (workspace) {
 
-                var mainPanel = workspace.lookupReference('centerPanel');
-                if (mainPanel) {
+            var columns = tab.query('dashboard-column');
 
-                    var dashboards = [];
-                    mainPanel.items.items.forEach(function (itemTab) {
+            // Loop though all the items in the dashboard columns
+            for(i = 0; i < columns.length; i++){
 
-                        var dashboard = {
-                            columnWidths: [],
-                            columns: []
-                        };
+                var column = columns[i],
+                    columnItems = [];
 
-                        itemTab.items.items.forEach(function (item) {
+                // Loop though all the items in the dashboard column
+                column.items.each(function(columnItem){
 
+                    var dashboardColumnState = columnItem.getState(),
+                        state = {
+                            height: dashboardColumnState.height
+                        },
+                        valueType = me.storeConteiner(columnItem, state);
 
-                            if (item.initialCls == "x-dashboard-column") {
-                                var columnItems = [];
-
-                                item.items.items.forEach(function (columnItem) {
-
-                                    try {
-                                        var dashboardColumnState = columnItem.getState();
-
-                                        var state = new Object();
-                                        state.height = dashboardColumnState.height;
-                                        // debugger;
-
-                                        var valueType = me.storeConteiner(columnItem, state);
-
-                                        columnItems.push({
-                                            type: columnItem._partConfig.type,
-                                            value: valueType,
-                                            title: columnItem._partConfig.title,
-                                            state: state
-                                        });
-                                    } catch (ex) {
-                                        console.log("Can't restore element, " + ex);
-                                    }
-
-                                });
-
-                                dashboard.columns.push(columnItems);
-
-                                dashboard.columnWidths.push(item.columnWidth);
-                            }
-
-
-
-                        });
-
-                        dashboards.push(dashboard);
+                    columnItems.push({
+                        type: columnItem._partConfig.type,
+                        value: valueType,
+                        title: columnItem._partConfig.title,
+                        state: state
                     });
 
 
-                    layout.workspaces.push({
-                        dashboards: dashboards
-                    });
-                }
+                });
 
-            });
+                dashboard.columns.push(columnItems);
+                dashboard.columnWidths.push(tab.columnWidth);
+            }
 
-            var jsLayout = Ext.JSON.encode(layout);
+            dashboards.push(dashboard);
 
-            localStorage.setItem("StoredLayout", jsLayout);
-
-            Ext.Ajax.request({
-                url: Settings.HostUrl + 'Account/SenchaLayoutStoreSave',
-                method: 'POST',
-                params: {
-                    layout: jsLayout
-                },
-
-                success: function (response, opts) {
-                    //   myMask.hide();
-                    //   alert("State successfully saved !");
-                },
-
-                failure: function (response, opts) {
-                    //     myMask.hide();
-                    //     alert("State saved error: " + response.status);
-                }
-
-            });
-
-        } catch (err) {
-            //   myMask.hide();
-            alert("State saved error: " + err);
         }
-        */
+
+        layout.workspaces.push({
+            dashboards: dashboards
+        });
+
+        jsLayout = Ext.encode(layout);
+
+        localStorage.setItem('StoredLayout', jsLayout);
+
+        Ext.Ajax.request({
+            url: Settings.HostUrl + 'Account/SenchaLayoutStoreSave',
+            method: 'POST',
+            params: {
+                layout: jsLayout
+            },
+            success: function (response, opts) {
+                myMask.destroy(true);
+            },
+
+            failure: function (response, opts) {
+                myMask.destroy(true);
+            }
+
+        });
 
     },
 
     storeConteiner: function (columnItem, state) {
-
 
         if (columnItem.items.items[0].columns) {
 
@@ -220,6 +195,14 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
         myMask.show();
 
+        // TEMPORARY RESTORE LAYOUT FROM LOCAL STORAGE
+
+        var layout = Ext.decode(localStorage.StoredLayout);
+        me.restore(layout);
+
+        myMask.destroy(true);
+
+        /*
         Ext.Ajax.request({
             url: Settings.HostUrl + 'Account/SenchaLayoutStoreGet',
             method: "GET",
@@ -244,69 +227,63 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                 Ext.Msg.alert('Status', response);
             }
         });
+        */
     },
 
     restore: function (layout) {
-
-        var wrkIter = 0;
         var me = this,
-            mainView = me.getMainView();
+            mainView = me.getMainView(),
+            workspace, index;
 
         if (layout && layout.workspaces) {
-            layout.workspaces.forEach(function (workspace) {
+            workspace = layout.workspaces[0]; // We only have one workspace now
 
-                var dshbIter = 0;
-                var work = mainView.items.items[wrkIter++];
-                var mainPanel = work.lookupReference('centerPanel');
+            workspace.dashboards.forEach(function (dashboard) {
 
-                workspace.dashboards.forEach(function (dashboard) {
+                index = 0;
 
-                    var activeTabe = mainPanel.items.items[dshbIter++];
+                Ext.GlobalEvents.fireEvent('adddashboardtab', null, dashboard.columnWidths);
 
-                    if (activeTabe == undefined)
-                        activeTabe = me.addNewTab(mainPanel);
+                dashboard.columns.forEach(function (column) {
 
-                    if (dashboard.columnWidths.length > 0)
-                        activeTabe.columnWidths = dashboard.columnWidths;
-
-                    var i = 0;
-
-                    dashboard.columns.forEach(function (column) {
-
-                        column.forEach(function (item) {
-
-                            me.restoreContiner(item, activeTabe, i);
-
-                        });
-
-                        i++;
-
+                    column.forEach(function (item) {
+                        me.restoreContiner(item, index);
                     });
+
+                    index++;
+
                 });
+
+
             });
+
         }
+        else {
+            // Create the first tab if no layout was saved
+            Ext.GlobalEvents.fireEvent('adddashboardtab', 'Tab 1');
+        }
+
         me.initLoad = false;
     },
 
-    restoreContiner: function (item, activeTabe, i) {
-
-        var view = null;
+    restoreContiner: function (item, i) {
+        var viewConfig;
 
         switch (item.type) {
 
             case 'portfolio_deals':
                 {
-                    view = activeTabe.addView({
+                    viewConfig = {
                         type: item.type,
                         title: item.title,
                         portfolioId: item.value
-                    }, i);
+                    };
 
                     break;
                 }
             case 'repport':
                 {
-                    view = activeTabe.addView({
+                    viewConfig = {
                         type: item.type,
                         title: item.title,
                         reportName: item.title,
@@ -317,65 +294,70 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                         report_sort: item.value.report_sort,
                         report_groupId: item.value.report_groupId,
                         restoring: true
-                    }, i);
+                    };
 
                     break;
                 }
 
             case 'chart':
                 {
-                    //valueType = columnItem.items.items[0].stxx.exportLayout();
-                    view = activeTabe.addView({
+                    viewConfig = {
                         type: item.type,
                         title: item.title,
                         chartIQState: item.value,
                         stateValue: item.state
-                    }, i);
+                    };
 
                     break;
                 }
 
             default:
                 {
-                    view = activeTabe.addView({
+                    viewConfig = {
                         type: item.type,
                         title: item.title,
                         stateValue: item.state
-                    }, i);
+                    };
                 }
 
         }
 
+        Ext.GlobalEvents.fireEvent('adddashboardview', viewConfig, false, i, function(view){
 
-        // debugger;
-        if (item.state) {
+            // debugger;
+            if (item.state) {
 
 
-            if (item.state.columns) {
+                if (item.state.columns) {
 
-                var grid = view.items.items[0];
-                item.state.columns.forEach(function (col) {
-                    grid.columns.forEach(function (gridCol) {
-                        if (col.dataIndex == gridCol.dataIndex) {
+                    var grid = view.items.items[0];
+                    item.state.columns.forEach(function (col) {
+                        grid.columns.forEach(function (gridCol) {
+                            if (col.dataIndex == gridCol.dataIndex) {
 
-                            col.id = gridCol.stateId;
+                                col.id = gridCol.stateId;
 
-                            if (col.hidden)
-                                gridCol.setHidden(true);
-                            if (col.width)
-                                gridCol.setWidth(col.width);
+                                if (col.hidden)
+                                    gridCol.setHidden(true);
+                                if (col.width)
+                                    gridCol.setWidth(col.width);
 
-                        }
+                            }
+                        });
                     });
-                });
+                }
+
+                if (item.state.height) {
+
+                    view.setHeight(item.state.height);
+
+                }
             }
 
-            if (item.state.height) {
 
-                view.setHeight(item.state.height);
+        });
 
-            }
-        }
+
     },
 
     addNewTab: function (worspace) {

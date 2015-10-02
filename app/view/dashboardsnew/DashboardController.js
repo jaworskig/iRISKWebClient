@@ -4,6 +4,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
     listen: {
         global: {
+            adddashboardtab: 'onAddDashboardTab',
             adddashboardview: 'onAddDashboardView',
             showfullscreen: 'onShowFullScreen',
             closefullscreen: 'onCloseFullScreen'
@@ -13,10 +14,6 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
     counter: 1,
 
     cachedTabs: {},
-
-    init: function(view){
-        this.addDashboard('Tab 1');
-    },
 
     onShowFullScreen: function (xtype, partConfig) {
         var me = this,
@@ -51,18 +48,28 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         tabBar.show();
     },
 
-    onAddDashboardView: function (config, checkPosition) {
+    onAddDashboardView: function (config, checkPosition, index, callback) {
         var me = this,
             card = me.getActiveCard(),
-            columnIndex;
+            index = index || 0,
+            columnIndex, view;
 
         if (!checkPosition) {
-            card.addView(config);
+            // view = card.addView(config, index); EXT LAYOUT FAILS
+            view = card.addView(config);
         }
         else {
             columnIndex = (card.columnWidths != undefined) ? card.columnWidths.length : 0;
-            card.addView(config, columnIndex);
+            view = card.addView(config, columnIndex);
         }
+
+        if(callback){
+            callback(view);
+        }
+    },
+
+    onAddDashboardTab: function(title, items){
+        this.addDashboard(title, items);
     },
 
     onAddDashboardClick: function(){
@@ -87,7 +94,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         Ext.resumeLayouts();
     },
 
-    addDashboard: function (title) {
+    addDashboard: function (title, columnWidths) {
         var me = this,
             view = me.getView(),
             tabBar = me.lookupReference('tabbar'),
@@ -106,7 +113,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         card = view.add({
             xtype: 'dashboard',
             reference: cardReference,
-            columnWidths: [ 0.5, 0.40, 0.25 ],
+            // columnWidths: columnWidths, EXT LAYOUT FAILS
             parts: {
                 repport: {
                     viewTemplate: {
@@ -139,17 +146,14 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             }
         });
 
-        tabBar.setActiveTab(tab, true);
-
-        view.setActiveItem(card);
-
         me.cachedTabs[cardReference] = card;
+
+        tabBar.setActiveTab(tab, me.counter === 1);
 
         me.counter++;
     },
 
     onTabCloseClick: function(tabbar, tab){
-        debugger;
         var me = this,
             cache = me.cachedTabs,
             reference = tab.getReference() + 'Card',
@@ -164,5 +168,9 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
     getActiveCard: function () {
         var view = this.getView();
         return view.down('dashboard');
+    },
+
+    getTabs: function(){
+        return this.cachedTabs;
     }
 });

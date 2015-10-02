@@ -16,7 +16,6 @@ Ext.define('iRISKClient.view.main.MainAppView', {
         //'iRISKClient.view.portfolio.PortfoliosExplorer',
 
         'iRISKClient.view.counterparts.CounterpartsExplorer',
-        'iRISKClient.view.rightArea.RigthAreaPanel',
         'iRISKClient.view.dashboards.DashBoard',
         'iRISKClient.view.toolbar.BottomTollbar',
         'iRISKClient.view.dealsLast.DealsLastList',

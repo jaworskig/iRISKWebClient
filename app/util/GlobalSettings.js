@@ -6,10 +6,12 @@ Ext.define('iRISKClient.util.GlobalSettings', {
         this.initConfig(config);
     },
 
-     //HostUrl: 'http://yellow.irisk.no/',
-     HostUrl: 'http://lenovoyoga/',
+    HostUrl: 'http://yellow.irisk.no/',
+    //HostUrl: 'http://lenovoyoga/',
     //HostUrl: 'http://localhost:40236/',
     CellBlinkColor: 'F4B084',
+
+    workspace: '1',
 
     getStatusCellColor: function (status) {
 

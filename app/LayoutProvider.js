@@ -15,7 +15,10 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     },
 
     storeLayout: function () {
-        var me = this;
+        var me = this,
+            mainView = me.getMainView();
+
+        /* TODO: This need to be adapted to the new architecture
         try {
 
             console.log("Storing layout");
@@ -27,7 +30,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
             //var myMask = new Ext.LoadMask({
             //    msg: 'Storing layout, Please wait...',
-            //    target: iRISKClient.view.main.MainController.lookupReference('mainArea')
+            //    target: mainView
             //});
 
             //myMask.show();
@@ -36,7 +39,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                 workspaces: []
             };
             //debugger;
-            iRISKClient.view.main.MainController.lookupReference('mainArea').items.items.forEach(function (workspace) {
+            mainView.items.items.forEach(function (workspace) {
 
                 var mainPanel = workspace.lookupReference('centerPanel');
                 if (mainPanel) {
@@ -125,7 +128,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
             //   myMask.hide();
             alert("State saved error: " + err);
         }
-
+        */
 
     },
 
@@ -207,11 +210,12 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     },
 
     restoreLayout: function () {
-        var me = this;
+        var me = this,
+            mainView = me.getMainView();
 
         var myMask = new Ext.LoadMask({
             msg: 'Restoring layout, Please wait...',
-            target: iRISKClient.view.main.MainController.lookupReference('mainArea')
+            target: mainView
         });
 
         myMask.show();
@@ -245,12 +249,14 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     restore: function (layout) {
 
         var wrkIter = 0;
-        var me = this;
+        var me = this,
+            mainView = me.getMainView();
+
         if (layout && layout.workspaces) {
             layout.workspaces.forEach(function (workspace) {
 
                 var dshbIter = 0;
-                var work = iRISKClient.view.main.MainController.lookupReference('mainArea').items.items[wrkIter++];
+                var work = mainView.items.items[wrkIter++];
                 var mainPanel = work.lookupReference('centerPanel');
 
                 workspace.dashboards.forEach(function (dashboard) {
@@ -409,6 +415,9 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                 }
             }
         });
-    }
+    },
 
+    getMainView: function(){
+        return Ext.getCmp('irisk-main-view');
+    }
 });

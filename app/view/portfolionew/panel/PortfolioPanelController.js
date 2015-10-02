@@ -1,8 +1,9 @@
 Ext.define('iRISKClient.view.portfolionew.panel.PortfolioPanelController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.portfoliopanelnew',
-
-    cachedTabs: {},
+    mixins: [
+        'iRISKClient.mixin.CachedTabs'
+    ],
 
     init: function(view){
         var me = this,
@@ -43,31 +44,5 @@ Ext.define('iRISKClient.view.portfolionew.panel.PortfolioPanelController', {
     onMenuItemClick: function(btn){
         var root = btn.text;
         this.fireEvent('portfoliorootchange', root);
-    },
-
-    onItemChange: function(tabbar, tab){
-        var me = this,
-            view = me.getView(),
-            layout = view.getLayout(),
-            activeTab = layout.getActiveItem(),
-            type = tab.itemType,
-            cache = me.cachedTabs,
-            newTab = cache[type],
-            cachedTab, cachedType;
-
-        Ext.suspendLayouts();
-
-        if(!newTab){
-            newTab = Ext.widget(type);
-        }
-
-        cachedTab = view.remove(activeTab, false);
-        cachedType = cachedTab.getXType();
-
-        view.setActiveItem(newTab);
-
-        me.cachedTabs[cachedType] = cachedTab;
-
-        Ext.resumeLayouts();
     }
 });

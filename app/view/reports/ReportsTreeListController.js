@@ -16,11 +16,7 @@ Ext.define('iRISKClient.view.reports.ReportsTreeListController', {
 
 
     onReportClick: function (ttree, record, item, index, eEvent, eOpts) {
-        //debugger;
-
-
-        var activeTabe = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
+        var view;
 
         //debugger;
         var type = null;
@@ -29,7 +25,7 @@ Ext.define('iRISKClient.view.reports.ReportsTreeListController', {
         else if (record.data.reportType == 'DerivedCurve')
             type = 'derived_curve';
         if (type && Settings.UseFormulaEditor) {
-            activeTabe.addView({
+            view = {
                 type: 'formulaeditor',
                 title: record.data.name,
                 config: {
@@ -38,19 +34,21 @@ Ext.define('iRISKClient.view.reports.ReportsTreeListController', {
                     type: type,
                     issue: 'None'
                 }
-            }, columnIndex);
+            };
         }
         else {
 
             //  debugger;
-            activeTabe.addView({
+            view = {
                 type: 'repport',
                 title: record.data.name,
                 reportId: record.id
 
                 //stateId: 'report_' + record.data.name
                 //height: activeTabe.getHeight()/2
-            }, columnIndex);
+            };
         }
+
+        Ext.GlobalEvents.fireEvent('adddashboardview', view, true);
     }
 });

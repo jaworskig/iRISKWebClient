@@ -25,7 +25,6 @@ Ext.define('iRISKClient.view.chartsLive.ChartsLive', {
 
 
     constructor: function (cfg) {
-
         var me = this,
             partConfig = cfg.partConfig || cfg.$initParent._partConfig;
 

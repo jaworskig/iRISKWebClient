@@ -2,35 +2,28 @@ Ext.define('iRISKClient.controller.Main', {
     extend: 'Ext.app.Controller',
     listen: {
         global: {
-            adddashboardview: 'onAddDashboardView'
+            authenticate: 'onAuthenticate'
         }
     },
-    refs: [
-        {
-            ref: 'mainArea',
-            selector: 'app-main #mainArea'
-        }
-    ],
 
-    onAddDashboardView: function (config, checkPosition) {
-        var me = this,
-            tab = me.getActiveTab(),
-            columnIndex;
+    onAuthenticate: function(username, password, success, failure){
 
-        if (!checkPosition) {
-            tab.addView(config);
-        }
-        else {
-            columnIndex = (tab.columnWidths != undefined) ? tab.columnWidths.length : 0;
-            tab.addView(config, columnIndex);
-        }
-    },
-    getActiveTab: function () {
-        var me = this,
-            mainArea = me.getMainArea(),
-            workspace = mainArea.getActiveTab(),
-            mainPanel = workspace.lookupReference('centerPanel');
+        Ext.Ajax.request({
+            url: Settings.HostUrl + 'Account/LoginSencha?userName=' + username + '&password=' + password,
+            success: function (response, opts) {
+                var result = Ext.decode(response.responseText);
 
-        return mainPanel.getActiveTab();
+                if (result.IsAuthenticated) {
+
+                    localStorage.setItem("UserName", username);
+                    localStorage.setItem("Password", password);
+
+                    success();
+                }
+
+            },
+            failure: failure
+        });
+
     }
 })

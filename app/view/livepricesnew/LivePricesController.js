@@ -31,8 +31,13 @@ Ext.define('iRISKClient.view.livepricesnew.LivePricesController', {
 
     handleLiveUpdateFeed: function (message) {
         var me = this,
-            view = me.getView(),
-            store = this.getStore('livestore'),
+            view = me.getView();
+
+        if(!view){
+            return false;
+        }
+
+        var store = me.getStore('livestore'),
             productName = message.ProductName,
             length = message.Data.length,
             record = store.getById(productName),

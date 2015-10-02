@@ -1,6 +1,7 @@
 
 Ext.define('iRISKClient.view.settings.SettingsWindow', {
     extend: 'Ext.window.Window',
+    xtype: 'settingwindow',
     title: "Settings",
     controller: 'settings',
     shadow: false,

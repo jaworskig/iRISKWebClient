@@ -8,7 +8,6 @@ Ext.define('iRISKClient.view.main.MainAppView', {
 
         'iRISKClient.util.GlobalSettings',
         'iRISKClient.view.main.MainController',
-        'iRISKClient.view.workspaces.WorkSpace',
         'iRISKClient.view.leftArea.LeftArea',
         'iRISKClient.view.reports.FoldersTreeList',
         'iRISKClient.view.reports.ReportsTreeListController',

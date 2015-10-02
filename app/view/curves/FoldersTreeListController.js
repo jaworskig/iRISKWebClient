@@ -39,18 +39,10 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
     },
 
     onCurveClick: function (ttree, record, item, index, eEvent, eOpts) {
-        //debugger;
-
-        //var activeWorkspace = iRISKClient.view.main.MainController.lookupReference('mainArea').getActiveTab();
-        //var mainTable = activeWorkspace.lookupReference('centerPanel');
-        //var activeTabe = mainTable.getActiveTab();
-
-        var activeTabe = iRISKClient.view.main.MainController.getActiveDashboard();
-        var columnIndex = (activeTabe.columnWidths != undefined) ? activeTabe.columnWidths.length : 0;
-        
+        var viewConfig;
 
         if (Settings.UseFormulaEditor) {
-            activeTabe.addView({
+            viewConfig = {
                 type: 'formulaeditor',
                 title: record.data.name,
                 config: {
@@ -59,17 +51,18 @@ Ext.define('iRISKClient.view.curves.FoldersTreeListController', {
                     type: record.data.curveType,
                     issue: record.data.issueDate
                 }
-            }, columnIndex);
+            };
         }
         else {
-            activeTabe.addView({
+            viewConfig = {
                 type: 'chart',
                 //myid: record.id,
                 title: record.data.name,
                 resolution: record.data.resolution
                 //chartName: record.data.name
-            }, columnIndex);
+            };
         }
 
+        Ext.GlobalEvents.fireEvent('adddashboardview', viewConfig, true);
     }
 });

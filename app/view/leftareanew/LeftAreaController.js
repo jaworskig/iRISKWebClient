@@ -71,14 +71,19 @@ Ext.define('iRISKClient.view.leftareanew.LeftAreaController', {
             tabbar = view.down('tabbar'),
             type = btn.itemType,
             tab = tabbar.down('tab[itemType=' + type + ']'),
-            collapsed = view.getCollapsed();
+            collapsed = view.getCollapsed(),
+            lastType = me.lastType;
 
-        me.onItemChange(tabbar, tab);
+        if(lastType !== type) {
+            me.onItemChange(tabbar, tab);
+        }
 
         tabbar.hide();
 
         if(!collapsed){
             event.stopPropagation();
         }
+
+        me.lastType = type;
     }
 });

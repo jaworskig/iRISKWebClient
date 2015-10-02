@@ -25,10 +25,10 @@ Ext.define('iRISKClient.mixin.CachedTabs', {
             newTab = Ext.widget(type);
         }
 
+        view.setActiveItem(newTab);
+
         cachedTab = view.remove(activeTab, false);
         cachedType = cachedTab.getXType();
-
-        view.setActiveItem(newTab);
 
         me.cachedTabs[cachedType] = cachedTab;
 

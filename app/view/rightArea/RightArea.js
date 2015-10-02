@@ -1,5 +1,4 @@
-Ext.define('iRISKClient.view.rightArea.RigthAreaPanel', {
-
+Ext.define('iRISKClient.view.rightArea.RigthArea', {
     extend: 'Ext.form.Panel',
     xtype: 'rightAreaPnl',
     title: "News (22 unread)",
@@ -13,5 +12,4 @@ Ext.define('iRISKClient.view.rightArea.RigthAreaPanel', {
     collapsed: true,
     stateful: true,
     layout: 'fit'
-
 });

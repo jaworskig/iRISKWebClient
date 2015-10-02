@@ -83,8 +83,6 @@ Ext.define('iRISKClient.view.leftArea.LeftArea', {
         me.callParent(arguments);
     },
 
-
-
     items: [{
         xtype: 'tabpanel',
         stateful: true,

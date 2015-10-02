@@ -7,6 +7,10 @@ Ext.define('iRISKClient.view.mainnew.Main', {
         'iRISKClient.view.mainnew.MainModel',
         'iRISKClient.view.mainnew.MainController',
         'iRISKClient.view.dashboardsnew.Dashboard',
+        'iRISKClient.view.leftareanew.LeftArea',
+        'iRISKClient.view.rightArea.RigthArea',
+        'iRISKClient.view.toolbar.BottomTollbar',
+        'iRISKClient.util.GlobalSettings',
         'Ext.tab.Bar'
     ],
     controller: 'mainnew',
@@ -136,8 +140,9 @@ Ext.define('iRISKClient.view.mainnew.Main', {
 
         items = [
             {
-                xtype: 'leftArea',
-                reference: 'leftArea'
+                xtype: 'leftareanew',
+                reference: 'leftArea',
+                region: 'west'
             },
             {
                 xtype: 'iriskdashboard',

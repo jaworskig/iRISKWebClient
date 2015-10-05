@@ -136,6 +136,22 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
                         }]
                     }
                 },
+                formulaeditor: {
+                    viewTemplate: {
+                        items: [
+                            {
+                                xtype: 'formulaeditor'
+                            }
+                        ]
+                    }
+                },
+                livepositions: {
+                    viewTemplate: {
+                        items: [{
+                            xtype: 'livepositionsnew'
+                        }]
+                    }
+                },
                 portfolio_deals: {
                     viewTemplate: {
                         items: [{

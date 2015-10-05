@@ -25,7 +25,9 @@ Ext.define('iRISKClient.Application', {
 
     launch: function () {
         var me = this,
-            params = Ext.Object.fromQueryString(window.location.hash.replace('#', ''));
+            params = Ext.Object.fromQueryString(window.location.hash.replace('#', '')),
+            username = params.username || '',
+            password = params.password || '';
 
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -42,16 +44,16 @@ Ext.define('iRISKClient.Application', {
             return;
         }
 
-        if(params.workspace && params.username && params.password){
+        if(params.workspace){
 
-            /* Clear the params on the url and change the page title. */
-            window.location.hash = '';
+            /* Clear the params on the url (except workspace) and change the page title. */
+            window.location.hash = 'workspace=' + params.workspace;
             document.title = 'iRISKClient | Workspace ' + params.workspace;
             Settings.workspace = params.workspace;
 
             /* Fire the global application event the Main controller is listening for that allows
              the user to authenticate. */
-            Ext.GlobalEvents.fireEvent('authenticate', params.username, params.password, me.onAuthenticated.bind(me),
+            Ext.GlobalEvents.fireEvent('authenticate', username, password, me.onAuthenticated.bind(me),
                 function(response){
                     Ext.widget('login');
                 });

@@ -26,18 +26,10 @@ Ext.define('iRISKClient.view.portfolionew.explorer.PortfolioExplorerController',
     },
 
     onGroupDblClick: function (tree, record) {
-        var view = this.getView(),
-            main = view.up('app-main'),
-            mainArea = main.lookupReference('mainArea').getActiveTab(),
-            centerPanel = mainArea.lookupReference('centerPanel'),
-            activeTab = centerPanel.getActiveTab(),
-            width = activeTab.columnWidths,
-            index = Ext.isDefined(width) ? width.length : 0;
-
-        activeTab.addView({
+        Ext.GlobalEvents.fireEvent('adddashboardview',{
             type: 'livepositions',
             title: record.get('text')
-        }, index);
+        }, true);
     },
 
     onItemContextMenu: function(view, list, node, rowIndex, e){

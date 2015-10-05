@@ -20,6 +20,9 @@ Ext.define('iRISKClient.controller.Main', {
 
                     success();
                 }
+                else {
+                    failure();
+                }
 
             },
             failure: failure

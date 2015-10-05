@@ -21,12 +21,20 @@ Ext.define('iRISKClient.App.LayoutProvider', {
             controller = dashboard.getController(),
             tabs = controller.getTabs(),
             dashboards = [],
-            layout = {
-                workspaces: []
-            },
-            i, tab, items, jsLayout;
+            layout, i, tab, items, jsLayout, oldWorkspace;
 
         console.log("Storing layout");
+
+        debugger;
+        layout = localStorage.StoredLayout;
+        if(layout){
+            layout = Ext.decode(layout);
+        }
+        else {
+            layout = {
+                workspaces: []
+            }
+        }
 
         if (this.initLoad)
             return;
@@ -82,7 +90,14 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
         }
 
+        // Remove the old workspace config if already existing
+        oldWorkspace = me.findWorkspace(layout);
+        if(oldWorkspace){
+            Ext.Array.remove(layout.workspaces, oldWorkspace);
+        }
+
         layout.workspaces.push({
+            index: Settings.workspace,
             dashboards: dashboards
         });
 
@@ -233,10 +248,10 @@ Ext.define('iRISKClient.App.LayoutProvider', {
     restore: function (layout) {
         var me = this,
             mainView = me.getMainView(),
-            workspace, index;
+            workspace = me.findWorkspace(layout),
+            index;
 
-        if (layout && layout.workspaces) {
-            workspace = layout.workspaces[0]; // We only have one workspace now
+        if (workspace) {
 
             workspace.dashboards.forEach(function (dashboard) {
 
@@ -264,6 +279,24 @@ Ext.define('iRISKClient.App.LayoutProvider', {
         }
 
         me.initLoad = false;
+    },
+
+    findWorkspace: function(layout){
+        var layout = layout || {},
+            workspaces = layout.workspaces || [],
+            length = workspaces.length,
+            i = 0, workspace;
+
+        if (layout && layout.workspaces) {
+            for (; i < length; i++) {
+                workspace = layout.workspaces[i];
+                if (workspace.index === Settings.workspace) {
+                    return workspace;
+                }
+            }
+        }
+
+        return null;
     },
 
     restoreContiner: function (item, i) {

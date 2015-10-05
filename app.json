@@ -33,7 +33,7 @@
      * The name of the theme for this application.
      */
 
-    "theme": "iRISK-dark-theme",
+    "theme": "theme-irisk-dark",
 
     /**
      * The list of required packages (with optional versions; default is "latest").
@@ -490,10 +490,10 @@
 
     "builds": {
         "neptune": {
-            "theme": "iRISK-dark-theme"
+            "theme": "theme-irisk-dark"
         },
         "neptune-touch": {
-            "theme": "iRISK-light-theme"
+            "theme": "theme-irisk-dark"
         }
     }
 }

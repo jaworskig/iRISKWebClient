@@ -1,0 +1,9 @@
+.x-tree-view {
+	.x-grid-item {
+		background: $window-color;
+	}
+
+	.x-grid-item-over {
+		background: darken($highlight-color, 30%);
+	}
+}

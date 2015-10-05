@@ -1,0 +1,183 @@
+@include extjs-button-small-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-small-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+
+@include extjs-button-medium-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-medium-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-large-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-large-ui(
+	$ui: 'round',
+
+	$background-color: $highlight-color,
+	$border-color: $highlight-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-small-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-small-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+
+@include extjs-button-medium-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-medium-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-large-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-large-ui(
+	$ui: 'roundorange',
+
+	$background-color: $base-color,
+	$border-color: $base-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+
+@include extjs-button-small-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-small-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-medium-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-medium-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-large-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+@include extjs-button-toolbar-large-ui(
+	$ui: 'gray',
+
+	$background-color: $window-color,
+	$border-color: $border-color,
+	$color: $white,
+	$glyph-color: $white 
+);
+
+.x-btn-gray-toolbar-small,
+.x-btn-gray-toolbar-medium,
+.x-btn-gray-toolbar-large,
+.x-btn-gray-large,
+.x-btn-gray-medium,
+.x-btn-gray-small {
+	&:hover {
+	  border-color: lighten($window-color, 20%);
+	}
+}
+
+.x-btn-round-large,
+.x-btn-round-medium,
+.x-btn-round-small {
+	&:hover {
+	  background-color: $window-color;
+	}
+}

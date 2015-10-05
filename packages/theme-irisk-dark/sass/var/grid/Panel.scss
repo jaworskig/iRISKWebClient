@@ -1,0 +1,20 @@
+$grid-header-background-color: $window-h-color;
+$grid-header-over-background-color: $highlight-color3;
+$grid-header-border-color: $background-color;
+$grid-header-color: $text-color;
+
+$grid-grouped-header-background-color: $window-h-color;
+$grid-grouped-title-color: $highlight-color3;
+$grid-grouped-title-glyph-color: $highlight-color3;
+
+$grid-row-cell-background-color : $window-color;
+$grid-row-cell-alt-background-color: darken($window-color, 10%);
+$grid-row-cell-border-color: $highlight-color;
+$grid-row-cell-color : $text-color;
+
+$grid-row-cell-over-background-color: darken($highlight-color, 30%);
+$grid-row-cell-over-color : $text-color;
+
+$grid-row-cell-selected-background-color : transparentize($base-color, 97%);
+$grid-row-cell-selected-color : $highlight-color;
+$grid-row-cell-focus-color : $highlight-color;

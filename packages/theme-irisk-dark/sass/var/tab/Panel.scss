@@ -1,0 +1,11 @@
+$tab-base-color-active: $highlight-color;
+$tab-base_color-over: darken($highlight-color,10%);
+
+$tab-plain-color: $text-color;
+$tab-plain-color-active: $white;
+$tab-plain-color-over: $white;
+$tab-plain-background-color-over: $highlight-color;
+
+$tabbar-base-color: $window-color;
+$tab_color_active: $text-color;
+$tab_color_over: $highlight-color;

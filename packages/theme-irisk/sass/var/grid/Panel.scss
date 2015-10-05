@@ -1,0 +1,33 @@
+$grid-header-border-width: 0;
+$grid-header-line-height: 12px;
+$grid-header-padding: 1px 10px;
+$grid-grouped-icon-padding: 0 0 0 18px; 
+
+$grid-body-border-color: transparent;
+$grid-body-border-width: 0;
+
+$grid-row-cell-line-height: 12px;
+$grid-row-cell-border-width: 0 !dynamic;
+$grid-row-cell-font-family: Coda, arial, verdana, sans-serif;
+$grid-row-cell-font-size: 11px;
+$grid-row-cell-focus-border-width: 0 !dynamic;
+$grid-row-cell-selected-border-width: 0 !dynamic;
+
+$grid_paging_toolbar_glyph_font_size: 12px;
+$grid_paging_toolbar_first_glyph: "\f100" 12px FontAwesome;
+$grid_paging_toolbar_last_glyph: "\f101" 12px FontAwesome;
+$grid_paging_toolbar_next_glyph: "\f105" 12px FontAwesome;
+$grid_paging_toolbar_prev_glyph: "\f104" 12px FontAwesome;
+$grid_paging_toolbar_refresh_glyph: "\f021" 12px FontAwesome;
+
+$tree_arrow_expanded_glyph: "\f0d7" 10px FontAwesome;
+$tree_arrow_glyph: "\f0da" 10px FontAwesome;
+$tree_checkbox_spacing: 2px;
+$tree_elbow_spacing: 2px;
+$tree_elbow_width: 12px;
+$tree_folder_glyph: "\f114" 10px FontAwesome;
+$tree_folder_open_glyph: "\f115" 10px FontAwesome;
+$tree_glyph_font_size: 10px;
+$tree_icon_spacing: 2px;
+$tree_icon_width: 12px;
+

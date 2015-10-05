@@ -1,6 +1,9 @@
 Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.iriskdashboard',
+    requires: [
+        'Ext.Editor'
+    ],
 
     listen: {
         global: {
@@ -101,7 +104,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             index = me.counter,
             title = title || 'Tab ' + index,
             cardReference = 'tab' + index + 'Card',
-            tab, card, viewConfig;
+            tab, card, viewConfig, el;
 
         tab = tabBar.insert(index - 1,{
             text: title,
@@ -109,6 +112,15 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         });
 
         tab.onCloseClick = Ext.bind(me.onTabCloseClick, me, [tabBar, tab], false);
+
+        // Setting up the listeners for the tabs title editing
+        el = tab.el;
+        if(!el) {
+            tab.on('afterrender', me.onTabAfterRender, me);
+        }
+        else {
+            el.on('dblclick', me.onTabDblCkick, me);
+        }
 
         viewConfig = {
             xtype: 'dashboard',
@@ -161,7 +173,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             }
         };
 
-        if(columnWidths){
+        if(columnWidths && columnWidths.length){
             viewConfig.columnWidths = columnWidths;
         }
 
@@ -180,10 +192,20 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             reference = tab.getReference() + 'Card',
             card = cache[reference];
 
-        card.destroy(true);
-        delete cache[reference];
-
         tabbar.remove(tab, true);
+        delete cache[reference];
+    },
+
+    onTabAfterRender: function(tab){
+        var me = this,
+            el = tab.el;
+
+        el.on('dblclick', me.onTabDblCkick, me);
+        tab.un('afterrender', me.onTabAfterRender, me);
+    },
+
+    onTabDblCkick: function(e, el){
+        this.getEditor().startEdit(el);
     },
 
     getActiveCard: function () {
@@ -191,7 +213,41 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         return view.down('dashboard');
     },
 
+    getEditor: function(){
+        var me = this,
+            editor = me.editor;
+
+        if(!editor) {
+            editor = new Ext.Editor({
+                updateEl: true,
+                alignment: 'l-l',
+                autoSize: {
+                    width: 'boundEl'
+                },
+                field: {
+                    xtype: 'textfield'
+                },
+                listeners: {
+                    complete: 'onTabTitleEditComplete',
+                    scope: this
+                }
+            });
+        }
+        me.editor = editor;
+
+        return editor;
+    },
+
+    onTabTitleEditComplete: function(editor, value, oldValue){
+        var me = this,
+            tabbar = me.lookupReference('tabbar'),
+            tab = tabbar.activeTab;
+
+        tab.setText(value);
+    },
+
     getTabs: function(){
+        debugger;
         return this.cachedTabs;
     }
 });

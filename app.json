@@ -47,6 +47,7 @@
 
    
     "requires": [
+        "font-awesome",
         "ext-locale",
         "ux"
     ],

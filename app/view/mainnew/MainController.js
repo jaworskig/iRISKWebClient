@@ -13,11 +13,9 @@ Ext.define('iRISKClient.view.mainnew.MainController', {
 
     init: function(){
         var me = this,
-            workspace = Number.parseInt(Settings.workspace),
-            tabBar = me.lookupReference('tabBar'),
-            tab = tabBar.getComponent(workspace);
+            workspaceBtn = this.lookupReference('workspaceBtn' + Settings.workspace);
 
-        tabBar.setActiveTab(tab, true);
+        workspaceBtn.toggle(true, true);
 
         me.onCheckWsState();
     },
@@ -70,9 +68,20 @@ Ext.define('iRISKClient.view.mainnew.MainController', {
         iRISKClient.App.LayoutProvider.restoreLayout();
     },
 
-    onItemChange: function(tabbar, tab, oldTab){
-        var workspace = tab.getText();
-        this.openWorkspacePopup(workspace);
+    onWorkspaceBtnClick: function(btn, state){
+        if(state) {
+            var workspace = btn.getText(),
+                oldBtn = this.lookupReference('workspaceBtn' + Settings.workspace);
+
+            // Do not open a tab for the same workspace
+            if(Settings.workspace != workspace) {
+                this.openWorkspacePopup(workspace);
+
+                // Restore the current workspace button as pressed
+                btn.toggle(false, true);
+                oldBtn.toggle(true, false);
+            }
+        }
     },
 
     onProductSelect: function(combo, record){

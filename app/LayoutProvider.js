@@ -25,6 +25,9 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
         console.log("Storing layout");
 
+        // Sort the Tabs by Index
+        tabs = me.sortTabsByPositionIndex(Ext.clone(tabs));
+
         layout = localStorage.StoredLayout;
         if(layout){
             layout = Ext.decode(layout);
@@ -50,6 +53,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
             tab = tabs[key];
 
             var dashboard = {
+                title: tab.tabTitle,
                 columnWidths: [],
                 columns: []
             };
@@ -248,32 +252,45 @@ Ext.define('iRISKClient.App.LayoutProvider', {
         var me = this,
             mainView = me.getMainView(),
             workspace = me.findWorkspace(layout),
-            index;
+            initDefault = false,
+            index, title;
 
         if (workspace) {
 
-            workspace.dashboards.forEach(function (dashboard) {
+            if(workspace.dashboards.length) {
 
-                index = 0;
+                workspace.dashboards.forEach(function (dashboard) {
 
-                Ext.GlobalEvents.fireEvent('adddashboardtab', null, dashboard.columnWidths);
+                    title = dashboard.title || 'Tab ' + index;
+                    index = 0;
 
-                dashboard.columns.forEach(function (column) {
+                    Ext.GlobalEvents.fireEvent('adddashboardtab', title, dashboard.columnWidths);
 
-                    column.forEach(function (item) {
-                        me.restoreContiner(item, index);
+                    dashboard.columns.forEach(function (column) {
+
+                        column.forEach(function (item) {
+                            me.restoreContiner(item, index);
+                        });
+
+                        index++;
+
                     });
 
-                    index++;
 
                 });
 
-
-            });
+            }
+            else {
+                initDefault = true;
+            }
 
         }
         else {
-            // Create the first tab if no layout was saved
+            initDefault = true;
+        }
+
+        // Create the first tab if no layout was saved
+        if(initDefault){
             Ext.GlobalEvents.fireEvent('adddashboardtab', 'Tab 1');
         }
 
@@ -296,6 +313,28 @@ Ext.define('iRISKClient.App.LayoutProvider', {
         }
 
         return null;
+    },
+
+    sortTabsByPositionIndex: function(tabs){
+        var sortedTabs = {},
+            lastIndex, tab, tabToAdd;
+
+        while(Object.keys(tabs).length) {
+            lastIndex = 9999;
+
+            for (var key in tabs) {
+                tab = tabs[key];
+                if (tab.positionIndex < lastIndex) {
+                    tabToAdd = tab;
+                    lastIndex = tab.positionIndex;
+                }
+            }
+
+            sortedTabs[lastIndex] = tabToAdd;
+            delete tabs[tabToAdd.reference];
+        }
+
+        return sortedTabs;
     },
 
     restoreContiner: function (item, i) {

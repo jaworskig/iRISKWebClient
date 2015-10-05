@@ -97,6 +97,27 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         Ext.resumeLayouts();
     },
 
+    onTabPositionChange: function(tab, index){
+        this.rebuildCachedTabsIndex();
+    },
+
+    rebuildCachedTabsIndex: function(){
+        var me = this,
+            cache = me.cachedTabs,
+            tabbar = me.lookupReference('tabbar'),
+            index = 0, reference, card;
+
+        tabbar.items.each(function(tab){
+            if(tab instanceof Ext.tab.Tab) {
+                reference = tab.reference + 'Card';
+                card = cache[reference];
+
+                card.positionIndex = index;
+                index++;
+            }
+        });
+    },
+
     addDashboard: function (title, columnWidths) {
         var me = this,
             view = me.getView(),
@@ -108,7 +129,8 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
         tab = tabBar.insert(index - 1,{
             text: title,
-            reference: 'tab' + index
+            reference: 'tab' + index,
+            reorderable: true
         });
 
         tab.onCloseClick = Ext.bind(me.onTabCloseClick, me, [tabBar, tab], false);
@@ -125,6 +147,8 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         viewConfig = {
             xtype: 'dashboard',
             reference: cardReference,
+            tabTitle: title,
+            positionIndex: index - 1,
             parts: {
                 repport: {
                     viewTemplate: {
@@ -222,7 +246,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
                 updateEl: true,
                 alignment: 'l-l',
                 autoSize: {
-                    width: 'boundEl'
+                    width: 100
                 },
                 field: {
                     xtype: 'textfield'
@@ -240,14 +264,15 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
     onTabTitleEditComplete: function(editor, value, oldValue){
         var me = this,
+            card = me.getActiveCard(),
             tabbar = me.lookupReference('tabbar'),
             tab = tabbar.activeTab;
 
         tab.setText(value);
+        card.tabTitle = value;
     },
 
     getTabs: function(){
-        debugger;
         return this.cachedTabs;
     }
 });

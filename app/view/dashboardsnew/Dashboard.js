@@ -1,7 +1,8 @@
 Ext.define('iRISKClient.view.dashboardsnew.Dashboard', {
     extend: 'Ext.Panel',
     requires: [
-        'iRISKClient.view.dashboardsnew.DashboardController'
+        'iRISKClient.view.dashboardsnew.DashboardController',
+        'iRISKClient.ux.TabReorderer'
     ],
     xtype: 'iriskdashboard',
     controller: 'iriskdashboard',
@@ -19,8 +20,12 @@ Ext.define('iRISKClient.view.dashboardsnew.Dashboard', {
                     handler: 'onAddDashboardClick'
                 }
             ],
+            plugins: {
+                ptype: 'irisk-tabreorderer'
+            },
             listeners: {
-                change: 'onItemChange'
+                change: 'onItemChange',
+                tabpositionchange: 'onTabPositionChange'
             }
         }
     ]

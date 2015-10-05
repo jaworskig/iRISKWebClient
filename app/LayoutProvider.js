@@ -25,7 +25,6 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
         console.log("Storing layout");
 
-        debugger;
         layout = localStorage.StoredLayout;
         if(layout){
             layout = Ext.decode(layout);
@@ -357,9 +356,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
 
         Ext.GlobalEvents.fireEvent('adddashboardview', viewConfig, false, i, function(view){
 
-            // debugger;
             if (item.state) {
-
 
                 if (item.state.columns) {
 

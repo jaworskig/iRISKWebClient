@@ -23,10 +23,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LayoutProvider.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/LayoutProvider.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="258" column="90" selection-start-line="258" selection-start-column="78" selection-end-line="258" selection-end-column="90" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DashboardController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/view/dashboardsnew/DashboardController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.43548387">
+              <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/mainnew/MainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.024193548">
+            <state vertical-scroll-proportion="-0.5555556">
               <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
               <folding />
             </state>
@@ -109,11 +129,11 @@
         <option value="$PROJECT_DIR$/app/Application.js" />
         <option value="$PROJECT_DIR$/app/view/portfolio/PortfoliosExplorerController.js" />
         <option value="$PROJECT_DIR$/app/view/portfolionew/explorer/PortfolioExplorerController.js" />
-        <option value="$PROJECT_DIR$/app/view/dashboardsnew/DashboardController.js" />
-        <option value="$PROJECT_DIR$/app/LayoutProvider.js" />
         <option value="$PROJECT_DIR$/app/view/mainnew/MainController.js" />
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/app/view/mainnew/Main.js" />
+        <option value="$PROJECT_DIR$/app/LayoutProvider.js" />
+        <option value="$PROJECT_DIR$/app/view/dashboardsnew/DashboardController.js" />
       </list>
     </option>
   </component>
@@ -125,8 +145,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="423" />
-    <option name="y" value="282" />
+    <option name="x" value="389" />
+    <option name="y" value="260" />
     <option name="width" value="1946" />
     <option name="height" value="1028" />
   </component>
@@ -184,7 +204,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sass" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -198,7 +218,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="classic" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iRISKWebClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iRISKWebClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboardsnew" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -493,15 +539,15 @@
       <workItem from="1443596995299" duration="942000" />
       <workItem from="1443598235292" duration="32758000" />
       <workItem from="1443789996806" duration="8002000" />
-      <workItem from="1444026152363" duration="5484000" />
+      <workItem from="1444026152363" duration="6186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107539000" />
+    <option name="totallyTimeSpent" value="108241000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="423" y="282" width="1946" height="1028" extended-state="0" />
+    <frame x="389" y="260" width="1946" height="1028" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -899,22 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/dashboardsnew/DashboardController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/LayoutProvider.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6711491">
-          <caret line="369" column="47" selection-start-line="369" selection-start-column="47" selection-end-line="369" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/Main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -941,8 +971,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/mainnew/MainController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024193548">
+        <state vertical-scroll-proportion="-0.5555556">
           <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/LayoutProvider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="258" column="90" selection-start-line="258" selection-start-column="78" selection-end-line="258" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/dashboardsnew/DashboardController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43548387">
+          <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
           <folding />
         </state>
       </provider>

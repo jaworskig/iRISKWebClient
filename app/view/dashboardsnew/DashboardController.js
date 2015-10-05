@@ -56,7 +56,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
         if (!checkPosition) {
             // view = card.addView(config, index); EXT LAYOUT FAILS
-            view = card.addView(config);
+            view = card.addView(config, index);
         }
         else {
             columnIndex = (card.columnWidths != undefined) ? card.columnWidths.length : 0;
@@ -68,8 +68,8 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
         }
     },
 
-    onAddDashboardTab: function(title, items){
-        this.addDashboard(title, items);
+    onAddDashboardTab: function(title, columnWidths){
+        this.addDashboard(title, columnWidths);
     },
 
     onAddDashboardClick: function(){
@@ -101,7 +101,7 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
             index = me.counter,
             title = title || 'Tab ' + index,
             cardReference = 'tab' + index + 'Card',
-            tab, card;
+            tab, card, viewConfig;
 
         tab = tabBar.insert(index - 1,{
             text: title,
@@ -110,10 +110,9 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
 
         tab.onCloseClick = Ext.bind(me.onTabCloseClick, me, [tabBar, tab], false);
 
-        card = view.add({
+        viewConfig = {
             xtype: 'dashboard',
             reference: cardReference,
-            // columnWidths: columnWidths, EXT LAYOUT FAILS
             parts: {
                 repport: {
                     viewTemplate: {
@@ -160,7 +159,13 @@ Ext.define('iRISKClient.view.dashboardsnew.DashboardController', {
                     }
                 }
             }
-        });
+        };
+
+        if(columnWidths){
+            viewConfig.columnWidths = columnWidths;
+        }
+
+        card = view.add(viewConfig);
 
         me.cachedTabs[cardReference] = card;
 

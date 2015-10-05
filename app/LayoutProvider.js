@@ -82,7 +82,7 @@ Ext.define('iRISKClient.App.LayoutProvider', {
                 });
 
                 dashboard.columns.push(columnItems);
-                dashboard.columnWidths.push(tab.columnWidth);
+                dashboard.columnWidths.push(column.columnWidth);
             }
 
             dashboards.push(dashboard);

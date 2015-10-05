@@ -12,7 +12,7 @@ Ext.define('iRISKClient.store.CounterpartsStore', {
         url: Settings.HostUrl + 'Report/CounterpartListData',
         reader: {
             type: 'json',
-            root: 'ReportList',
+            rootProperty: 'ReportList',
             successProperty: 'CounterpartReport'
         }
     }

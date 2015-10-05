@@ -76,6 +76,7 @@ Ext.define('iRISKClient.view.leftareanew.LeftAreaController', {
 
         if(lastType !== type) {
             me.onItemChange(tabbar, tab);
+            view.updateLayout();
         }
 
         tabbar.hide();
